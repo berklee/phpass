@@ -1,0 +1,189 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>PHPass</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><script xmlns="" type="text/javascript">
+
+            $(function() {
+                $("#sidebar-nav").accordion({
+                    autoHeight: false,
+                    navigation: true,
+                    collapsible: true
+                }).accordion("activate", false)
+                .find('a.link').unbind('click').click(function(ev){
+                    ev.cancelBubble = true; // IE
+                    if (ev.stopPropagation) {
+                        ev.stopPropagation(); // the rest
+                    }
+
+                    return true;
+                }).prev().prev().remove();
+
+                $("#sidebar-nav>h3").click(function(){
+                    if ($(this).attr('initialized') == 'true') return;
+
+                    $(this).next().find(".sidebar-nav-tree").treeview({
+                        collapsed: true,
+                        persist: "cookie"
+                    });
+                    $(this).attr('initialized', true);
+                });
+            });
+
+            function tree_search(input)
+            {
+                treeview = $(input).parent().parent().next();
+
+                // Expand all items
+                treeview.find('.expandable-hitarea').click();
+
+                // make all items visible again
+                treeview.find('li:hidden').show();
+
+                // hide all items that do not match the given search criteria
+                if ($(input).val()) {
+                    treeview.find('li').not(':has(a:contains('+$(input).val()+'))').hide();
+                }
+            }
+        </script><div xmlns="" id="sidebar">
+<div id="sidebar-header">
+<h1>PHPass</h1>
+<div style="clear: both"></div>
+</div>
+<div id="sidebar-nav">
+<h3 id="sidebar-dashboard">
+<img class="icon" src="css/docblox/images/icons/dashboard.png" alt="Dashboard"><a href="content.html" class="link" target="content">Dashboard</a>
+</h3>
+<div style="display: none"></div>
+<h3 id="sidebar-files">
+<img src="css/docblox/images/icons/files.png" alt="Files"><a href="#files">Files</a>
+</h3>
+<div class="sidebar-section">
+<div class="search-bar">
+<a href="#" onclick="$(this).parent().next().find('.collapsable-hitarea').click(); return false;"><img src="images/collapse_all.png" title="Collapse all" alt="Collapse all"></a><a href="#" onclick="$(this).parent().next().find('.expandable-hitarea').click(); return false;"><img src="images/expand_all.png" title="Expand all" alt="Expand all"></a><div><input type="text" onkeyup="tree_search(this);"></div>
+</div>
+<ul class="sidebar-nav-tree">
+<li class="closed">
+<span class="file"><a href="db_Phpass.html" target="content">Phpass.php</a></span><ul id="files_51cf9c749a04b601e02b9711a4e3257e" class="filetree"><li><span class="class"><a href="db_Phpass.html#%5CPhpass" target="content">Phpass<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_Phpass_Adapter.html" target="content">Phpass/Adapter.php</a></span><ul id="files_678a4f7daab1065883d51dc07f2d7532" class="filetree"><li><span class="interface"><a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter" target="content">Adapter<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_Phpass_Adapter_Base.html" target="content">Phpass/Adapter/Base.php</a></span><ul id="files_d6ccb585db7e6d78e33e0b41b9f3ce32" class="filetree"><li><span class="class"><a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase" target="content">Base<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_Phpass_Adapter_Blowfish.html" target="content">Phpass/Adapter/Blowfish.php</a></span><ul id="files_98a86d86676e811e8d8f74a22d35da1b" class="filetree"><li><span class="class"><a href="db_Phpass_Adapter_Blowfish.html#%5CPhpass%5CAdapter%5CBlowfish" target="content">Blowfish<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_Phpass_Adapter_ExtDes.html" target="content">Phpass/Adapter/ExtDes.php</a></span><ul id="files_c0f7702dfb2ebc7b2d127e1dfa920bc2" class="filetree"><li><span class="class"><a href="db_Phpass_Adapter_ExtDes.html#%5CPhpass%5CAdapter%5CExtDes" target="content">ExtDes<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_Phpass_Adapter_Portable.html" target="content">Phpass/Adapter/Portable.php</a></span><ul id="files_984b543bc0d2e294fee78ef06f69909e" class="filetree"><li><span class="class"><a href="db_Phpass_Adapter_Portable.html#%5CPhpass%5CAdapter%5CPortable" target="content">Portable<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_Phpass_Exception.html" target="content">Phpass/Exception.php</a></span><ul id="files_8d4ac1c3820ebf2ef841cd88fdc27e3a" class="filetree"><li><span class="interface"><a href="db_Phpass_Exception.html#%5CPhpass%5CException" target="content">Exception<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_Phpass_Exception_InvalidArgumentException.html" target="content">Phpass/Exception/InvalidArgumentException.php</a></span><ul id="files_3e3929eb56cc60fa4cc7d5d513bd753d" class="filetree"><li><span class="class"><a href="db_Phpass_Exception_InvalidArgumentException.html#%5CPhpass%5CException%5CInvalidArgumentException" target="content">InvalidArgumentException<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_Phpass_Exception_RuntimeException.html" target="content">Phpass/Exception/RuntimeException.php</a></span><ul id="files_d0c56291a96a2a8f681cf4defc1e7d2b" class="filetree"><li><span class="class"><a href="db_Phpass_Exception_RuntimeException.html#%5CPhpass%5CException%5CRuntimeException" target="content">RuntimeException<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_Phpass_Exception_UnexpectedValueException.html" target="content">Phpass/Exception/UnexpectedValueException.php</a></span><ul id="files_29f31ce885f4bfe77e0b04c0221c58a2" class="filetree"><li><span class="class"><a href="db_Phpass_Exception_UnexpectedValueException.html#%5CPhpass%5CException%5CUnexpectedValueException" target="content">UnexpectedValueException<br></a></span></li></ul>
+</li>
+</ul>
+</div>
+<h3 id="sidebar-packages">
+<img src="css/docblox/images/icons/packages.png" alt="Packages"><a href="#packages">Packages</a>
+</h3>
+<div class="sidebar-section sidebar-tree">
+<div class="search-bar">
+<a href="#" onclick="$(this).parent().next().find('.collapsable-hitarea').click(); return false;"><img src="images/collapse_all.png" title="Collapse all" alt="Collapse all"></a><a href="#" onclick="$(this).parent().next().find('.expandable-hitarea').click(); return false;"><img src="images/expand_all.png" title="Expand all" alt="Expand all"></a><div><input type="text" onkeyup="tree_search(this);"></div>
+</div>
+<ul class="sidebar-nav-tree"><li class="closed">
+<span class="folder">PHPass</span><ul>
+<li class="closed">
+<span class="folder">Adapters</span><ul>
+<li><span class="interface"><a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter" target="content">Adapter</a></span></li>
+<li><span class="class"><a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase" target="content">Base</a></span></li>
+<li><span class="class"><a href="db_Phpass_Adapter_Blowfish.html#%5CPhpass%5CAdapter%5CBlowfish" target="content">Blowfish</a></span></li>
+<li><span class="class"><a href="db_Phpass_Adapter_ExtDes.html#%5CPhpass%5CAdapter%5CExtDes" target="content">ExtDes</a></span></li>
+<li><span class="class"><a href="db_Phpass_Adapter_Portable.html#%5CPhpass%5CAdapter%5CPortable" target="content">Portable</a></span></li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">Exceptions</span><ul>
+<li><span class="interface"><a href="db_Phpass_Exception.html#%5CPhpass%5CException" target="content">Exception</a></span></li>
+<li><span class="class"><a href="db_Phpass_Exception_InvalidArgumentException.html#%5CPhpass%5CException%5CInvalidArgumentException" target="content">InvalidArgumentException</a></span></li>
+<li><span class="class"><a href="db_Phpass_Exception_RuntimeException.html#%5CPhpass%5CException%5CRuntimeException" target="content">RuntimeException</a></span></li>
+<li><span class="class"><a href="db_Phpass_Exception_UnexpectedValueException.html#%5CPhpass%5CException%5CUnexpectedValueException" target="content">UnexpectedValueException</a></span></li>
+</ul>
+</li>
+<li><span class="class"><a href="db_Phpass.html#%5CPhpass" target="content">Phpass</a></span></li>
+</ul>
+</li></ul>
+</div>
+<h3 id="sidebar-namespaces">
+<img src="css/docblox/images/icons/namespaces.png" alt="Namespaces"><a href="#namespaces">Namespaces</a>
+</h3>
+<div class="sidebar-section sidebar-tree">
+<div class="search-bar">
+<a href="#" onclick="$(this).parent().next().find('.collapsable-hitarea').click(); return false;"><img src="images/collapse_all.png" title="Collapse all" alt="Collapse all"></a><a href="#" onclick="$(this).parent().next().find('.expandable-hitarea').click(); return false;"><img src="images/expand_all.png" title="Expand all" alt="Expand all"></a><div><input type="text" onkeyup="tree_search(this);"></div>
+</div>
+<ul class="sidebar-nav-tree">
+<li class="closed">
+<span class="folder">Phpass</span><ul>
+<li class="closed">
+<span class="folder">Adapter</span><ul>
+<li><span class="class"><a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase" target="content">Base</a></span></li>
+<li><span class="class"><a href="db_Phpass_Adapter_Blowfish.html#%5CPhpass%5CAdapter%5CBlowfish" target="content">Blowfish</a></span></li>
+<li><span class="class"><a href="db_Phpass_Adapter_ExtDes.html#%5CPhpass%5CAdapter%5CExtDes" target="content">ExtDes</a></span></li>
+<li><span class="class"><a href="db_Phpass_Adapter_Portable.html#%5CPhpass%5CAdapter%5CPortable" target="content">Portable</a></span></li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">Exception</span><ul>
+<li><span class="class"><a href="db_Phpass_Exception_InvalidArgumentException.html#%5CPhpass%5CException%5CInvalidArgumentException" target="content">InvalidArgumentException</a></span></li>
+<li><span class="class"><a href="db_Phpass_Exception_RuntimeException.html#%5CPhpass%5CException%5CRuntimeException" target="content">RuntimeException</a></span></li>
+<li><span class="class"><a href="db_Phpass_Exception_UnexpectedValueException.html#%5CPhpass%5CException%5CUnexpectedValueException" target="content">UnexpectedValueException</a></span></li>
+</ul>
+</li>
+<li><span class="interface"><a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter" target="content">Adapter</a></span></li>
+<li><span class="interface"><a href="db_Phpass_Exception.html#%5CPhpass%5CException" target="content">Exception</a></span></li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">default</span><ul><li><span class="class"><a href="db_Phpass.html#%5CPhpass" target="content">Phpass</a></span></li></ul>
+</li>
+</ul>
+</div>
+<h3 id="sidebar-charts">
+<img src="css/docblox/images/icons/chart.png" alt="Charts"><a href="#charts">Charts</a>
+</h3>
+<div class="sidebar-section"><ul style="list-style-image: url('css/docblox/images/icons/chart15x12.png');"><li><a href="graph.html" target="content">Class Inheritance Diagram</a></li></ul></div>
+<h3 id="sidebar-reports">
+<img src="css/docblox/images/icons/reports.png" alt="Reports"><a href="#reports">Reports</a>
+</h3>
+<div class="sidebar-section"><ul style="list-style-image: url('css/docblox/images/icons/reports9x12.png');">
+<li><a href="report_markers.html" target="content">Markers (TODO/FIXME)</a></li>
+<li><a href="report_parse_markers.html" target="content">Parsing errors</a></li>
+<li><a href="report_deprecated.html" target="content">Deprecated elements</a></li>
+</ul></div>
+</div>
+<div id="sidebar-footer">
+                Documentation is generated by <a href="http://docblox-project.org"><img src="images/icon48x48.png" height="12" align="top" alt="Logo"> DocBlox 0.15.0</a>, images courtesy of <a href="http://glyphish.com/">Glyphish</a>
+</div>
+</div></body></html>

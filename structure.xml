@@ -1,0 +1,940 @@
+<?xml version="1.0"?>
+<project version="0.15.0" title="PHPass">
+  <file path="Phpass.php" hash="51cf9c749a04b601e02b9711a4e3257e" package="PHPass">
+    <docblock>
+      <description>Portable PHP password hashing framework.</description>
+      <long-description>
+</long-description>
+      <tag line="2" name="package" description="PHPass"/>
+      <tag line="2" name="category" description="Cryptography"/>
+      <tag line="2" name="author" description="Solar Designer &lt;solar at openwall.com&gt;"/>
+      <tag line="2" name="author" description="Ryan Chouinard &lt;rchouinard at gmail.com&gt;"/>
+      <tag line="2" name="license" description="http://www.opensource.org/licenses/mit-license.html MIT License"/>
+      <tag line="2" name="link" description="Original phpass project page." link="http://www.openwall.com/phpass/"/>
+      <tag line="2" name="link" description="PHPass project at GitHub." link="https://github.com/rchouinard/phpass"/>
+    </docblock>
+    <parse_markers>
+      <critical line="53">No short description for property $_adapter</critical>
+      <critical line="58">No short description for property $_hmacAlgo</critical>
+      <critical line="63">No short description for property $_hmacKey</critical>
+      <critical line="257">No short description for method _crypt</critical>
+    </parse_markers>
+    <namespace-alias name="InvalidArgumentException">Phpass\Exception\InvalidArgumentException</namespace-alias>
+    <namespace-alias name="RuntimeException">Phpass\Exception\RuntimeException</namespace-alias>
+    <namespace-alias name="UnexpectedValueException">Phpass\Exception\UnexpectedValueException</namespace-alias>
+    <include type="Require Once" line="22">
+      <name>Phpass/Adapter/Base.php</name>
+    </include>
+    <include type="Require Once" line="27">
+      <name>Phpass/Exception/InvalidArgumentException.php</name>
+    </include>
+    <include type="Require Once" line="32">
+      <name>Phpass/Exception/RuntimeException.php</name>
+    </include>
+    <include type="Require Once" line="37">
+      <name>Phpass/Exception/UnexpectedValueException.php</name>
+    </include>
+    <class final="false" abstract="false" line="50" namespace="default" package="PHPass">
+      <name>Phpass</name>
+      <extends/>
+      <full_name>\Phpass</full_name>
+      <docblock>
+        <description>Portable PHP password hashing framework.</description>
+        <long-description>
+</long-description>
+        <tag line="39" name="package" description="PHPass"/>
+        <tag line="39" name="category" description="Cryptography"/>
+        <tag line="39" name="author" description="Solar Designer &lt;solar at openwall.com&gt;"/>
+        <tag line="39" name="author" description="Ryan Chouinard &lt;rchouinard at gmail.com&gt;"/>
+        <tag line="39" name="license" description="http://www.opensource.org/licenses/mit-license.html MIT License"/>
+        <tag line="39" name="link" description="Original phpass project page." link="http://www.openwall.com/phpass/"/>
+        <tag line="39" name="link" description="PHPass project at GitHub." link="https://github.com/rchouinard/phpass"/>
+      </docblock>
+      
+      
+      
+      <method final="false" abstract="false" static="false" visibility="public" line="102" package="Default">
+        <name>__construct</name>
+        <docblock>
+          <description>Constructor</description>
+          <long-description>&lt;p&gt;I'm still debating on the API here. I can see three valid ways of
+instantiating the class, all of which have merit.&lt;/p&gt;
+
+&lt;p&gt;The first, and most verbose method, is to use an $options array to pass
+everything, including the adapter type and adapter options. This is the
+most flexible method, and is probably preferred moving forward.&lt;/p&gt;
+
+&lt;p&gt;$phpass = new Phpass($myOptionsArray);&lt;/p&gt;
+
+&lt;p&gt;The second is to pass in a previously instantiated adapter, presumably
+already configured. This method will probably continue to be supported
+along with the first.&lt;/p&gt;
+
+&lt;p&gt;$adapter = new Phpass\Adapter\Blowfish($myAdapterOptions);
+  $phpass = new Phpass($adapter);&lt;/p&gt;
+
+&lt;p&gt;The third way is in-line with the way Zend_Db and similar operate. The
+first argument is a string giving the name of the adapter type, and the
+second is an array of adapter options.&lt;/p&gt;
+
+&lt;p&gt;$phpass = new Phpass('blowfish', $myAdapterOptions);&lt;/p&gt;
+
+&lt;p&gt;All three methods are currently supported, although this may change as
+I continue to use the class and gain feedback from other developers.&lt;/p&gt;
+</long-description>
+          <tag line="68" name="see" description="\Phpass::setOptions()" refers="\Phpass::setOptions()"/>
+          <tag line="68" name="param" description="" type="array|\Phpass\Adapter|string" variable="$options">
+            <type by_reference="false">array</type>
+            <type by_reference="false">\Phpass\Adapter</type>
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="68" name="param" description="" type="array" variable="$adapterOptions">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="68" name="return" description="" type="void">
+            <type by_reference="false">void</type>
+          </tag>
+          <tag line="68" name="throws" description="" type="\Phpass\Exception\InvalidArgumentException">
+            <type by_reference="false">\Phpass\Exception\InvalidArgumentException</type>
+          </tag>
+        </docblock>
+        <argument line="102">
+          <name>$options</name>
+          <default>array ()</default>
+          <type/>
+        </argument>
+        <argument line="102">
+          <name>$adapterOptions</name>
+          <default>array ()</default>
+          <type>Array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="165" package="Default">
+        <name>setOptions</name>
+        <docblock>
+          <description>Set library options</description>
+          <long-description>&lt;dl&gt;
+
+    &lt;dt&gt;adapter&lt;/dt&gt;
+    &lt;dd&gt;May be either a concrete instance of Phpass\Adapter or an array.
+    The adapter array should contain at least a 'type' key with the name
+    of the desired adapter, and optionally an 'options' key containing
+    an array of options to pass to the adapter. See
+    Phpass\Adapter\Base::setOptions() for details.&lt;/dd&gt;
+
+    &lt;dt&gt;hmacKey&lt;/dt&gt;
+    &lt;dd&gt;Optional; Application-wide key used to generate HMAC hashes.
+    If omitted, HMAC hashing is disabled.&lt;/dd&gt;
+
+    &lt;dt&gt;hmacAlgo&lt;/dt&gt;
+    &lt;dd&gt;Optional; String naming one of the many hashing algorithms
+    available. A full list may be retrieved from the hash_algos()
+    function. Defaults to sha256.&lt;/dd&gt;
+
+&lt;/dl&gt;
+</long-description>
+          <tag line="138" name="see" description="\Phpass\Adapter\Base::setOptions()" refers="\Phpass\Adapter\Base::setOptions()"/>
+          <tag line="138" name="param" description="" type="array" variable="$options">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="138" name="return" description="" type="\Phpass">
+            <type by_reference="false">\Phpass</type>
+          </tag>
+        </docblock>
+        <argument line="165">
+          <name>$options</name>
+          <default/>
+          <type>Array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="199" package="Default">
+        <name>getAdapter</name>
+        <docblock>
+          <description>Return the currently configured adapter</description>
+          <long-description>
+</long-description>
+          <tag line="193" name="return" description="" type="\Phpass\Adapter">
+            <type by_reference="false">\Phpass\Adapter</type>
+          </tag>
+          <tag line="193" name="throws" description="" type="\Phpass\Exception\RuntimeException">
+            <type by_reference="false">\Phpass\Exception\RuntimeException</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="216" package="Default">
+        <name>setAdapter</name>
+        <docblock>
+          <description>Pass in a configured adapter</description>
+          <long-description>
+</long-description>
+          <tag line="208" name="param" description="" type="\Phpass\Adapter|string" variable="$adapter">
+            <type by_reference="false">\Phpass\Adapter</type>
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="208" name="param" description="" type="array" variable="$options">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="208" name="return" description="" type="\Phpass">
+            <type by_reference="false">\Phpass</type>
+          </tag>
+          <tag line="208" name="throws" description="" type="\Phpass\Exception\RuntimeException">
+            <type by_reference="false">\Phpass\Exception\RuntimeException</type>
+          </tag>
+        </docblock>
+        <argument line="216">
+          <name>$adapter</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="216">
+          <name>$options</name>
+          <default>array ()</default>
+          <type>Array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="240" package="Default">
+        <name>checkPassword</name>
+        <docblock>
+          <description>Check that a given password matches a given hash</description>
+          <long-description>
+</long-description>
+          <tag line="233" name="param" description="" type="string" variable="$password">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="233" name="param" description="" type="string" variable="$storedHash">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="233" name="return" description="" type="boolean">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="240">
+          <name>$password</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="240">
+          <name>$storedHash</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="252" package="Default">
+        <name>hashPassword</name>
+        <docblock>
+          <description>Generate a hash from the given password</description>
+          <long-description>
+</long-description>
+          <tag line="246" name="param" description="" type="string" variable="$password">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="246" name="return" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="252">
+          <name>$password</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      
+    </class>
+  </file>
+  <file path="Phpass/Exception.php" hash="8d4ac1c3820ebf2ef841cd88fdc27e3a" package="PHPass\Exceptions">
+    <docblock>
+      <description>Portable PHP password hashing framework.</description>
+      <long-description>
+</long-description>
+      <tag line="2" name="package" description="PHPass"/>
+      <tag line="2" name="subpackage" description="Exceptions"/>
+      <tag line="2" name="category" description="Cryptography"/>
+      <tag line="2" name="author" description="Solar Designer &lt;solar at openwall.com&gt;"/>
+      <tag line="2" name="author" description="Ryan Chouinard &lt;rchouinard at gmail.com&gt;"/>
+      <tag line="2" name="license" description="http://www.opensource.org/licenses/mit-license.html MIT License"/>
+      <tag line="2" name="link" description="Original phpass project page." link="http://www.openwall.com/phpass/"/>
+      <tag line="2" name="link" description="PHPass project at GitHub." link="https://github.com/rchouinard/phpass"/>
+    </docblock>
+    <interface namespace="Phpass" line="32" package="PHPass\Exceptions">
+      <name>Exception</name>
+      <extends/>
+      <full_name>\Phpass\Exception</full_name>
+      <docblock>
+        <description>Portable PHP password hashing framework.</description>
+        <long-description>
+</long-description>
+        <tag line="20" name="package" description="PHPass"/>
+        <tag line="20" name="subpackage" description="Exceptions"/>
+        <tag line="20" name="category" description="Cryptography"/>
+        <tag line="20" name="author" description="Solar Designer &lt;solar at openwall.com&gt;"/>
+        <tag line="20" name="author" description="Ryan Chouinard &lt;rchouinard at gmail.com&gt;"/>
+        <tag line="20" name="license" description="http://www.opensource.org/licenses/mit-license.html MIT License"/>
+        <tag line="20" name="link" description="Original phpass project page." link="http://www.openwall.com/phpass/"/>
+        <tag line="20" name="link" description="PHPass project at GitHub." link="https://github.com/rchouinard/phpass"/>
+      </docblock>
+    </interface>
+  </file>
+  <file path="Phpass/Exception/InvalidArgumentException.php" hash="3e3929eb56cc60fa4cc7d5d513bd753d" package="PHPass\Exceptions">
+    <docblock>
+      <description>Portable PHP password hashing framework.</description>
+      <long-description>
+</long-description>
+      <tag line="2" name="package" description="PHPass"/>
+      <tag line="2" name="subpackage" description="Exceptions"/>
+      <tag line="2" name="category" description="Cryptography"/>
+      <tag line="2" name="author" description="Solar Designer &lt;solar at openwall.com&gt;"/>
+      <tag line="2" name="author" description="Ryan Chouinard &lt;rchouinard at gmail.com&gt;"/>
+      <tag line="2" name="license" description="http://www.opensource.org/licenses/mit-license.html MIT License"/>
+      <tag line="2" name="link" description="Original phpass project page." link="http://www.openwall.com/phpass/"/>
+      <tag line="2" name="link" description="PHPass project at GitHub." link="https://github.com/rchouinard/phpass"/>
+    </docblock>
+    <namespace-alias name="Exception">Phpass\Exception</namespace-alias>
+    <include type="Require Once" line="24">
+      <name>Phpass/Exception.php</name>
+    </include>
+    <class final="false" abstract="false" line="38" namespace="Phpass\Exception" package="PHPass\Exceptions">
+      <name>InvalidArgumentException</name>
+      <extends>\InvalidArgumentException</extends>
+      <full_name>\Phpass\Exception\InvalidArgumentException</full_name>
+      <docblock>
+        <description>Portable PHP password hashing framework.</description>
+        <long-description>
+</long-description>
+        <tag line="26" name="package" description="PHPass"/>
+        <tag line="26" name="subpackage" description="Exceptions"/>
+        <tag line="26" name="category" description="Cryptography"/>
+        <tag line="26" name="author" description="Solar Designer &lt;solar at openwall.com&gt;"/>
+        <tag line="26" name="author" description="Ryan Chouinard &lt;rchouinard at gmail.com&gt;"/>
+        <tag line="26" name="license" description="http://www.opensource.org/licenses/mit-license.html MIT License"/>
+        <tag line="26" name="link" description="Original phpass project page." link="http://www.openwall.com/phpass/"/>
+        <tag line="26" name="link" description="PHPass project at GitHub." link="https://github.com/rchouinard/phpass"/>
+      </docblock>
+      <implements>\Phpass\Exception</implements>
+    </class>
+  </file>
+  <file path="Phpass/Exception/UnexpectedValueException.php" hash="29f31ce885f4bfe77e0b04c0221c58a2" package="PHPass\Exceptions">
+    <docblock>
+      <description>Portable PHP password hashing framework.</description>
+      <long-description>
+</long-description>
+      <tag line="2" name="package" description="PHPass"/>
+      <tag line="2" name="subpackage" description="Exceptions"/>
+      <tag line="2" name="category" description="Cryptography"/>
+      <tag line="2" name="author" description="Solar Designer &lt;solar at openwall.com&gt;"/>
+      <tag line="2" name="author" description="Ryan Chouinard &lt;rchouinard at gmail.com&gt;"/>
+      <tag line="2" name="license" description="http://www.opensource.org/licenses/mit-license.html MIT License"/>
+      <tag line="2" name="link" description="Original phpass project page." link="http://www.openwall.com/phpass/"/>
+      <tag line="2" name="link" description="PHPass project at GitHub." link="https://github.com/rchouinard/phpass"/>
+    </docblock>
+    <namespace-alias name="Exception">Phpass\Exception</namespace-alias>
+    <include type="Require Once" line="24">
+      <name>Phpass/Exception.php</name>
+    </include>
+    <class final="false" abstract="false" line="38" namespace="Phpass\Exception" package="PHPass\Exceptions">
+      <name>UnexpectedValueException</name>
+      <extends>\UnexpectedValueException</extends>
+      <full_name>\Phpass\Exception\UnexpectedValueException</full_name>
+      <docblock>
+        <description>Portable PHP password hashing framework.</description>
+        <long-description>
+</long-description>
+        <tag line="26" name="package" description="PHPass"/>
+        <tag line="26" name="subpackage" description="Exceptions"/>
+        <tag line="26" name="category" description="Cryptography"/>
+        <tag line="26" name="author" description="Solar Designer &lt;solar at openwall.com&gt;"/>
+        <tag line="26" name="author" description="Ryan Chouinard &lt;rchouinard at gmail.com&gt;"/>
+        <tag line="26" name="license" description="http://www.opensource.org/licenses/mit-license.html MIT License"/>
+        <tag line="26" name="link" description="Original phpass project page." link="http://www.openwall.com/phpass/"/>
+        <tag line="26" name="link" description="PHPass project at GitHub." link="https://github.com/rchouinard/phpass"/>
+      </docblock>
+      <implements>\Phpass\Exception</implements>
+    </class>
+  </file>
+  <file path="Phpass/Exception/RuntimeException.php" hash="d0c56291a96a2a8f681cf4defc1e7d2b" package="PHPass\Exceptions">
+    <docblock>
+      <description>Portable PHP password hashing framework.</description>
+      <long-description>
+</long-description>
+      <tag line="2" name="package" description="PHPass"/>
+      <tag line="2" name="subpackage" description="Exceptions"/>
+      <tag line="2" name="category" description="Cryptography"/>
+      <tag line="2" name="author" description="Solar Designer &lt;solar at openwall.com&gt;"/>
+      <tag line="2" name="author" description="Ryan Chouinard &lt;rchouinard at gmail.com&gt;"/>
+      <tag line="2" name="license" description="http://www.opensource.org/licenses/mit-license.html MIT License"/>
+      <tag line="2" name="link" description="Original phpass project page." link="http://www.openwall.com/phpass/"/>
+      <tag line="2" name="link" description="PHPass project at GitHub." link="https://github.com/rchouinard/phpass"/>
+    </docblock>
+    <namespace-alias name="Exception">Phpass\Exception</namespace-alias>
+    <include type="Require Once" line="24">
+      <name>Phpass/Exception.php</name>
+    </include>
+    <class final="false" abstract="false" line="38" namespace="Phpass\Exception" package="PHPass\Exceptions">
+      <name>RuntimeException</name>
+      <extends>\RuntimeException</extends>
+      <full_name>\Phpass\Exception\RuntimeException</full_name>
+      <docblock>
+        <description>Portable PHP password hashing framework.</description>
+        <long-description>
+</long-description>
+        <tag line="26" name="package" description="PHPass"/>
+        <tag line="26" name="subpackage" description="Exceptions"/>
+        <tag line="26" name="category" description="Cryptography"/>
+        <tag line="26" name="author" description="Solar Designer &lt;solar at openwall.com&gt;"/>
+        <tag line="26" name="author" description="Ryan Chouinard &lt;rchouinard at gmail.com&gt;"/>
+        <tag line="26" name="license" description="http://www.opensource.org/licenses/mit-license.html MIT License"/>
+        <tag line="26" name="link" description="Original phpass project page." link="http://www.openwall.com/phpass/"/>
+        <tag line="26" name="link" description="PHPass project at GitHub." link="https://github.com/rchouinard/phpass"/>
+      </docblock>
+      <implements>\Phpass\Exception</implements>
+    </class>
+  </file>
+  <file path="Phpass/Adapter/Portable.php" hash="984b543bc0d2e294fee78ef06f69909e" package="PHPass\Adapters">
+    <docblock>
+      <description>Portable PHP password hashing framework.</description>
+      <long-description>
+</long-description>
+      <tag line="2" name="package" description="PHPass"/>
+      <tag line="2" name="subpackage" description="Adapters"/>
+      <tag line="2" name="category" description="Cryptography"/>
+      <tag line="2" name="author" description="Solar Designer &lt;solar at openwall.com&gt;"/>
+      <tag line="2" name="author" description="Ryan Chouinard &lt;rchouinard at gmail.com&gt;"/>
+      <tag line="2" name="license" description="http://www.opensource.org/licenses/mit-license.html MIT License"/>
+      <tag line="2" name="link" description="Original phpass project page." link="http://www.openwall.com/phpass/"/>
+      <tag line="2" name="link" description="PHPass project at GitHub." link="https://github.com/rchouinard/phpass"/>
+    </docblock>
+    <parse_markers>
+      <notice line="44">Argument $password is missing from the function Docblock</notice>
+      <notice line="44">Argument $setting is missing from the function Docblock</notice>
+      <notice line="95">Argument $input is missing from the function Docblock</notice>
+      <notice line="121">Argument $hash is missing from the function Docblock</notice>
+    </parse_markers>
+    <include type="Require Once" line="23">
+      <name>Phpass/Adapter/Base.php</name>
+    </include>
+    <class final="false" abstract="false" line="37" namespace="Phpass\Adapter" package="PHPass\Adapters">
+      <name>Portable</name>
+      <extends>\Phpass\Adapter\Base</extends>
+      <full_name>\Phpass\Adapter\Portable</full_name>
+      <docblock>
+        <description>Portable PHP password hashing framework.</description>
+        <long-description>
+</long-description>
+        <tag line="25" name="package" description="PHPass"/>
+        <tag line="25" name="subpackage" description="Adapters"/>
+        <tag line="25" name="category" description="Cryptography"/>
+        <tag line="25" name="author" description="Solar Designer &lt;solar at openwall.com&gt;"/>
+        <tag line="25" name="author" description="Ryan Chouinard &lt;rchouinard at gmail.com&gt;"/>
+        <tag line="25" name="license" description="http://www.opensource.org/licenses/mit-license.html MIT License"/>
+        <tag line="25" name="link" description="Original phpass project page." link="http://www.openwall.com/phpass/"/>
+        <tag line="25" name="link" description="PHPass project at GitHub." link="https://github.com/rchouinard/phpass"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" line="44" package="Default">
+        <name>crypt</name>
+        <docblock>
+          <description>(non-PHPdoc)</description>
+          <long-description>
+</long-description>
+          <tag line="40" name="see" description="\Phpass\Adapter::crypt()" refers="\Phpass\Adapter::crypt()"/>
+        </docblock>
+        <argument line="44">
+          <name>$password</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="44">
+          <name>$setting</name>
+          <default>null</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="95" package="Default">
+        <name>genSalt</name>
+        <docblock>
+          <description>(non-PHPdoc)</description>
+          <long-description>
+</long-description>
+          <tag line="91" name="see" description="\Phpass\Adapter::genSalt()" refers="\Phpass\Adapter::genSalt()"/>
+        </docblock>
+        <argument line="95">
+          <name>$input</name>
+          <default>null</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="112" package="Default">
+        <name>isSupported</name>
+        <docblock>
+          <description>(non-PHPdoc)</description>
+          <long-description>
+</long-description>
+          <tag line="108" name="see" description="\Phpass\Adapter::isSupported()" refers="\Phpass\Adapter::isSupported()"/>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="121" package="Default">
+        <name>isValid</name>
+        <docblock>
+          <description>(non-PHPdoc)</description>
+          <long-description>
+</long-description>
+          <tag line="117" name="see" description="\Phpass\Adapter::isValid()" refers="\Phpass\Adapter::isValid()"/>
+        </docblock>
+        <argument line="121">
+          <name>$hash</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+    </class>
+  </file>
+  <file path="Phpass/Adapter/ExtDes.php" hash="c0f7702dfb2ebc7b2d127e1dfa920bc2" package="PHPass\Adapters">
+    <docblock>
+      <description>Portable PHP password hashing framework.</description>
+      <long-description>
+</long-description>
+      <tag line="2" name="package" description="PHPass"/>
+      <tag line="2" name="subpackage" description="Adapters"/>
+      <tag line="2" name="category" description="Cryptography"/>
+      <tag line="2" name="author" description="Solar Designer &lt;solar at openwall.com&gt;"/>
+      <tag line="2" name="author" description="Ryan Chouinard &lt;rchouinard at gmail.com&gt;"/>
+      <tag line="2" name="license" description="http://www.opensource.org/licenses/mit-license.html MIT License"/>
+      <tag line="2" name="link" description="Original phpass project page." link="http://www.openwall.com/phpass/"/>
+      <tag line="2" name="link" description="PHPass project at GitHub." link="https://github.com/rchouinard/phpass"/>
+    </docblock>
+    <parse_markers>
+      <notice line="44">Argument $input is missing from the function Docblock</notice>
+      <notice line="79">Argument $hash is missing from the function Docblock</notice>
+    </parse_markers>
+    <include type="Require Once" line="23">
+      <name>Phpass/Adapter/Base.php</name>
+    </include>
+    <class final="false" abstract="false" line="37" namespace="Phpass\Adapter" package="PHPass\Adapters">
+      <name>ExtDes</name>
+      <extends>\Phpass\Adapter\Base</extends>
+      <full_name>\Phpass\Adapter\ExtDes</full_name>
+      <docblock>
+        <description>Portable PHP password hashing framework.</description>
+        <long-description>
+</long-description>
+        <tag line="25" name="package" description="PHPass"/>
+        <tag line="25" name="subpackage" description="Adapters"/>
+        <tag line="25" name="category" description="Cryptography"/>
+        <tag line="25" name="author" description="Solar Designer &lt;solar at openwall.com&gt;"/>
+        <tag line="25" name="author" description="Ryan Chouinard &lt;rchouinard at gmail.com&gt;"/>
+        <tag line="25" name="license" description="http://www.opensource.org/licenses/mit-license.html MIT License"/>
+        <tag line="25" name="link" description="Original phpass project page." link="http://www.openwall.com/phpass/"/>
+        <tag line="25" name="link" description="PHPass project at GitHub." link="https://github.com/rchouinard/phpass"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" line="44" package="Default">
+        <name>genSalt</name>
+        <docblock>
+          <description>(non-PHPdoc)</description>
+          <long-description>
+</long-description>
+          <tag line="40" name="see" description="\Phpass\Adapter::genSalt()" refers="\Phpass\Adapter::genSalt()"/>
+        </docblock>
+        <argument line="44">
+          <name>$input</name>
+          <default>null</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="70" package="Default">
+        <name>isSupported</name>
+        <docblock>
+          <description>(non-PHPdoc)</description>
+          <long-description>
+</long-description>
+          <tag line="66" name="see" description="\Phpass\Adapter::isSupported()" refers="\Phpass\Adapter::isSupported()"/>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="79" package="Default">
+        <name>isValid</name>
+        <docblock>
+          <description>(non-PHPdoc)</description>
+          <long-description>
+</long-description>
+          <tag line="75" name="see" description="\Phpass\Adapter\PhpassAdapter::isValid()" refers="\Phpass\Adapter\PhpassAdapter::isValid()"/>
+        </docblock>
+        <argument line="79">
+          <name>$hash</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+    </class>
+  </file>
+  <file path="Phpass/Adapter/Base.php" hash="d6ccb585db7e6d78e33e0b41b9f3ce32" package="PHPass\Adapters">
+    <docblock>
+      <description>Portable PHP password hashing framework.</description>
+      <long-description>
+</long-description>
+      <tag line="2" name="package" description="PHPass"/>
+      <tag line="2" name="subpackage" description="Adapters"/>
+      <tag line="2" name="category" description="Cryptography"/>
+      <tag line="2" name="author" description="Solar Designer &lt;solar at openwall.com&gt;"/>
+      <tag line="2" name="author" description="Ryan Chouinard &lt;rchouinard at gmail.com&gt;"/>
+      <tag line="2" name="license" description="http://www.opensource.org/licenses/mit-license.html MIT License"/>
+      <tag line="2" name="link" description="Original phpass project page." link="http://www.openwall.com/phpass/"/>
+      <tag line="2" name="link" description="PHPass project at GitHub." link="https://github.com/rchouinard/phpass"/>
+    </docblock>
+    <parse_markers>
+      <critical line="53">No short description for property $_iterationCountLog2</critical>
+      <critical line="58">No short description for property $_itoa64</critical>
+      <critical line="63">No short description for property $_randomState</critical>
+      <critical line="69">No short description for method __construct</critical>
+      <notice line="90">Argument $password is missing from the function Docblock</notice>
+      <notice line="90">Argument $salt is missing from the function Docblock</notice>
+      <critical line="98">No short description for method setOptions</critical>
+      <critical line="120">No short description for method _encode64</critical>
+      <critical line="151">No short description for method _getRandomBytes</critical>
+      <critical line="175">No short description for method factory</critical>
+    </parse_markers>
+    <namespace-alias name="Adapter">Phpass\Adapter</namespace-alias>
+    <namespace-alias name="InvalidArgumentException">Phpass\Exception\InvalidArgumentException</namespace-alias>
+    <namespace-alias name="RuntimeException">Phpass\Exception\RuntimeException</namespace-alias>
+    <include type="Require Once" line="26">
+      <name>Phpass/Adapter.php</name>
+    </include>
+    <include type="Require Once" line="31">
+      <name>Phpass/Exception/InvalidArgumentException.php</name>
+    </include>
+    <include type="Require Once" line="36">
+      <name>Phpass/Exception/RuntimeException.php</name>
+    </include>
+    <class final="false" abstract="true" line="50" namespace="Phpass\Adapter" package="PHPass\Adapters">
+      <name>Base</name>
+      <extends/>
+      <full_name>\Phpass\Adapter\Base</full_name>
+      <docblock>
+        <description>Portable PHP password hashing framework.</description>
+        <long-description>
+</long-description>
+        <tag line="38" name="package" description="PHPass"/>
+        <tag line="38" name="subpackage" description="Adapters"/>
+        <tag line="38" name="category" description="Cryptography"/>
+        <tag line="38" name="author" description="Solar Designer &lt;solar at openwall.com&gt;"/>
+        <tag line="38" name="author" description="Ryan Chouinard &lt;rchouinard at gmail.com&gt;"/>
+        <tag line="38" name="license" description="http://www.opensource.org/licenses/mit-license.html MIT License"/>
+        <tag line="38" name="link" description="Original phpass project page." link="http://www.openwall.com/phpass/"/>
+        <tag line="38" name="link" description="PHPass project at GitHub." link="https://github.com/rchouinard/phpass"/>
+      </docblock>
+      <implements>\Phpass\Adapter</implements>
+      
+      
+      
+      <method final="false" abstract="false" static="false" visibility="public" line="73" package="Default">
+        <name>__construct</name>
+        <docblock>
+          <description/>
+          <long-description>
+</long-description>
+          <tag line="69" name="param" description="" type="array" variable="$options">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="69" name="return" description="" type="void">
+            <type by_reference="false">void</type>
+          </tag>
+        </docblock>
+        <argument line="73">
+          <name>$options</name>
+          <default>array ()</default>
+          <type>Array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="90" package="Default">
+        <name>crypt</name>
+        <docblock>
+          <description>(non-PHPdoc)</description>
+          <long-description>
+</long-description>
+          <tag line="86" name="see" description="\Phpass\Adapter::crypt()" refers="\Phpass\Adapter::crypt()"/>
+        </docblock>
+        <argument line="90">
+          <name>$password</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="90">
+          <name>$salt</name>
+          <default>null</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="102" package="Default">
+        <name>setOptions</name>
+        <docblock>
+          <description/>
+          <long-description>
+</long-description>
+          <tag line="98" name="param" description="" type="array" variable="$options">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="98" name="return" description="" type="void">
+            <type by_reference="false">void</type>
+          </tag>
+        </docblock>
+        <argument line="102">
+          <name>$options</name>
+          <default/>
+          <type>Array</type>
+        </argument>
+      </method>
+      
+      
+      <method final="false" abstract="false" static="true" visibility="public" line="181" package="Default">
+        <name>factory</name>
+        <docblock>
+          <description/>
+          <long-description>
+</long-description>
+          <tag line="175" name="param" description="" type="string" variable="$adapter">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="175" name="param" description="" type="array" variable="$options">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="175" name="return" description="" type="\Phpass\Adapter">
+            <type by_reference="false">\Phpass\Adapter</type>
+          </tag>
+          <tag line="175" name="throws" description="" type="\Phpass\Exception\InvalidArgumentException">
+            <type by_reference="false">\Phpass\Exception\InvalidArgumentException</type>
+          </tag>
+        </docblock>
+        <argument line="181">
+          <name>$adapter</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="181">
+          <name>$options</name>
+          <default>array ()</default>
+          <type>Array</type>
+        </argument>
+      </method>
+    </class>
+  </file>
+  <file path="Phpass/Adapter/Blowfish.php" hash="98a86d86676e811e8d8f74a22d35da1b" package="PHPass\Adapters">
+    <docblock>
+      <description>Portable PHP password hashing framework.</description>
+      <long-description>
+</long-description>
+      <tag line="2" name="package" description="PHPass"/>
+      <tag line="2" name="subpackage" description="Adapters"/>
+      <tag line="2" name="category" description="Cryptography"/>
+      <tag line="2" name="author" description="Solar Designer &lt;solar at openwall.com&gt;"/>
+      <tag line="2" name="author" description="Ryan Chouinard &lt;rchouinard at gmail.com&gt;"/>
+      <tag line="2" name="license" description="http://www.opensource.org/licenses/mit-license.html MIT License"/>
+      <tag line="2" name="link" description="Original phpass project page." link="http://www.openwall.com/phpass/"/>
+      <tag line="2" name="link" description="PHPass project at GitHub." link="https://github.com/rchouinard/phpass"/>
+    </docblock>
+    <parse_markers>
+      <critical line="40">No short description for method __construct</critical>
+      <notice line="54">Argument $input is missing from the function Docblock</notice>
+      <notice line="107">Argument $hash is missing from the function Docblock</notice>
+    </parse_markers>
+    <include type="Require Once" line="23">
+      <name>Phpass/Adapter/Base.php</name>
+    </include>
+    <class final="false" abstract="false" line="37" namespace="Phpass\Adapter" package="PHPass\Adapters">
+      <name>Blowfish</name>
+      <extends>\Phpass\Adapter\Base</extends>
+      <full_name>\Phpass\Adapter\Blowfish</full_name>
+      <docblock>
+        <description>Portable PHP password hashing framework.</description>
+        <long-description>
+</long-description>
+        <tag line="25" name="package" description="PHPass"/>
+        <tag line="25" name="subpackage" description="Adapters"/>
+        <tag line="25" name="category" description="Cryptography"/>
+        <tag line="25" name="author" description="Solar Designer &lt;solar at openwall.com&gt;"/>
+        <tag line="25" name="author" description="Ryan Chouinard &lt;rchouinard at gmail.com&gt;"/>
+        <tag line="25" name="license" description="http://www.opensource.org/licenses/mit-license.html MIT License"/>
+        <tag line="25" name="link" description="Original phpass project page." link="http://www.openwall.com/phpass/"/>
+        <tag line="25" name="link" description="PHPass project at GitHub." link="https://github.com/rchouinard/phpass"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" line="44" package="Default">
+        <name>__construct</name>
+        <docblock>
+          <description/>
+          <long-description>
+</long-description>
+          <tag line="40" name="param" description="" type="array" variable="$options">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="40" name="return" description="" type="void">
+            <type by_reference="false">void</type>
+          </tag>
+        </docblock>
+        <argument line="44">
+          <name>$options</name>
+          <default>array ()</default>
+          <type>Array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="54" package="Default">
+        <name>genSalt</name>
+        <docblock>
+          <description>(non-PHPdoc)</description>
+          <long-description>
+</long-description>
+          <tag line="50" name="see" description="\Phpass\Adapter::genSalt()" refers="\Phpass\Adapter::genSalt()"/>
+        </docblock>
+        <argument line="54">
+          <name>$input</name>
+          <default>null</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="98" package="Default">
+        <name>isSupported</name>
+        <docblock>
+          <description>(non-PHPdoc)</description>
+          <long-description>
+</long-description>
+          <tag line="94" name="see" description="\Phpass\Adapter::isSupported()" refers="\Phpass\Adapter::isSupported()"/>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="107" package="Default">
+        <name>isValid</name>
+        <docblock>
+          <description>(non-PHPdoc)</description>
+          <long-description>
+</long-description>
+          <tag line="103" name="see" description="\Phpass\Adapter::isValid()" refers="\Phpass\Adapter::isValid()"/>
+        </docblock>
+        <argument line="107">
+          <name>$hash</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+    </class>
+  </file>
+  <file path="Phpass/Adapter.php" hash="678a4f7daab1065883d51dc07f2d7532" package="PHPass\Adapters">
+    <docblock>
+      <description>Portable PHP password hashing framework.</description>
+      <long-description>
+</long-description>
+      <tag line="2" name="package" description="PHPass"/>
+      <tag line="2" name="subpackage" description="Adapters"/>
+      <tag line="2" name="category" description="Cryptography"/>
+      <tag line="2" name="author" description="Solar Designer &lt;solar at openwall.com&gt;"/>
+      <tag line="2" name="author" description="Ryan Chouinard &lt;rchouinard at gmail.com&gt;"/>
+      <tag line="2" name="license" description="http://www.opensource.org/licenses/mit-license.html MIT License"/>
+      <tag line="2" name="link" description="Original phpass project page." link="http://www.openwall.com/phpass/"/>
+      <tag line="2" name="link" description="PHPass project at GitHub." link="https://github.com/rchouinard/phpass"/>
+    </docblock>
+    <parse_markers>
+      <critical line="35">No short description for method crypt</critical>
+      <critical line="42">No short description for method genSalt</critical>
+      <critical line="49">No short description for method isSupported</critical>
+      <critical line="54">No short description for method isValid</critical>
+    </parse_markers>
+    <interface namespace="Phpass" line="32" package="PHPass\Adapters">
+      <name>Adapter</name>
+      <extends/>
+      <full_name>\Phpass\Adapter</full_name>
+      <docblock>
+        <description>Portable PHP password hashing framework.</description>
+        <long-description>
+</long-description>
+        <tag line="20" name="package" description="PHPass"/>
+        <tag line="20" name="subpackage" description="Adapters"/>
+        <tag line="20" name="category" description="Cryptography"/>
+        <tag line="20" name="author" description="Solar Designer &lt;solar at openwall.com&gt;"/>
+        <tag line="20" name="author" description="Ryan Chouinard &lt;rchouinard at gmail.com&gt;"/>
+        <tag line="20" name="license" description="http://www.opensource.org/licenses/mit-license.html MIT License"/>
+        <tag line="20" name="link" description="Original phpass project page." link="http://www.openwall.com/phpass/"/>
+        <tag line="20" name="link" description="PHPass project at GitHub." link="https://github.com/rchouinard/phpass"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" line="40" package="Default">
+        <name>crypt</name>
+        <docblock>
+          <description/>
+          <long-description>
+</long-description>
+          <tag line="35" name="param" description="" type="string" variable="$password">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="35" name="param" description="" type="string" variable="$salt">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="35" name="return" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="40">
+          <name>$password</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="40">
+          <name>$salt</name>
+          <default>null</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="46" package="Default">
+        <name>genSalt</name>
+        <docblock>
+          <description/>
+          <long-description>
+</long-description>
+          <tag line="42" name="param" description="" type="string" variable="$input">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="42" name="return" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="46">
+          <name>$input</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="52" package="Default">
+        <name>isSupported</name>
+        <docblock>
+          <description/>
+          <long-description>
+</long-description>
+          <tag line="49" name="return" description="" type="boolean">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="58" package="Default">
+        <name>isValid</name>
+        <docblock>
+          <description/>
+          <long-description>
+</long-description>
+          <tag line="54" name="param" description="" type="string" variable="$hash">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="54" name="return" description="" type="boolean">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="58">
+          <name>$hash</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+    </interface>
+  </file>
+  <package name="Default"/>
+  <package name="PHPass">
+    <package name="Adapters"/>
+    <package name="Exceptions"/>
+  </package>
+  <namespace name="Phpass">
+    <namespace name="Adapter"/>
+    <namespace name="Exception"/>
+  </namespace>
+  <namespace name="default"/>
+  <marker>todo</marker>
+  <marker>fixme</marker>
+</project>
