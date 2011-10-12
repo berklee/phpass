@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project version="0.15.0" title="PHPass">
-  <file path="Phpass.php" hash="51cf9c749a04b601e02b9711a4e3257e" package="PHPass">
+  <file path="Phpass.php" hash="5b33a2f7be01f0e640ebfdc764482ccc" package="PHPass">
     <docblock>
       <description>Portable PHP password hashing framework.</description>
       <long-description>
@@ -14,27 +14,27 @@
       <tag line="2" name="link" description="PHPass project at GitHub." link="https://github.com/rchouinard/phpass"/>
     </docblock>
     <parse_markers>
-      <critical line="53">No short description for property $_adapter</critical>
-      <critical line="58">No short description for property $_hmacAlgo</critical>
-      <critical line="63">No short description for property $_hmacKey</critical>
-      <critical line="257">No short description for method _crypt</critical>
+      <critical line="52">No short description for property $_adapter</critical>
+      <critical line="57">No short description for property $_hmacAlgo</critical>
+      <critical line="62">No short description for property $_hmacKey</critical>
+      <critical line="256">No short description for method _crypt</critical>
     </parse_markers>
     <namespace-alias name="InvalidArgumentException">Phpass\Exception\InvalidArgumentException</namespace-alias>
     <namespace-alias name="RuntimeException">Phpass\Exception\RuntimeException</namespace-alias>
     <namespace-alias name="UnexpectedValueException">Phpass\Exception\UnexpectedValueException</namespace-alias>
-    <include type="Require Once" line="22">
+    <include type="Require Once" line="21">
       <name>Phpass/Adapter/Base.php</name>
     </include>
-    <include type="Require Once" line="27">
+    <include type="Require Once" line="26">
       <name>Phpass/Exception/InvalidArgumentException.php</name>
     </include>
-    <include type="Require Once" line="32">
+    <include type="Require Once" line="31">
       <name>Phpass/Exception/RuntimeException.php</name>
     </include>
-    <include type="Require Once" line="37">
+    <include type="Require Once" line="36">
       <name>Phpass/Exception/UnexpectedValueException.php</name>
     </include>
-    <class final="false" abstract="false" line="50" namespace="default" package="PHPass">
+    <class final="false" abstract="false" line="49" namespace="default" package="PHPass">
       <name>Phpass</name>
       <extends/>
       <full_name>\Phpass</full_name>
@@ -42,18 +42,18 @@
         <description>Portable PHP password hashing framework.</description>
         <long-description>
 </long-description>
-        <tag line="39" name="package" description="PHPass"/>
-        <tag line="39" name="category" description="Cryptography"/>
-        <tag line="39" name="author" description="Solar Designer &lt;solar at openwall.com&gt;"/>
-        <tag line="39" name="author" description="Ryan Chouinard &lt;rchouinard at gmail.com&gt;"/>
-        <tag line="39" name="license" description="http://www.opensource.org/licenses/mit-license.html MIT License"/>
-        <tag line="39" name="link" description="Original phpass project page." link="http://www.openwall.com/phpass/"/>
-        <tag line="39" name="link" description="PHPass project at GitHub." link="https://github.com/rchouinard/phpass"/>
+        <tag line="38" name="package" description="PHPass"/>
+        <tag line="38" name="category" description="Cryptography"/>
+        <tag line="38" name="author" description="Solar Designer &lt;solar at openwall.com&gt;"/>
+        <tag line="38" name="author" description="Ryan Chouinard &lt;rchouinard at gmail.com&gt;"/>
+        <tag line="38" name="license" description="http://www.opensource.org/licenses/mit-license.html MIT License"/>
+        <tag line="38" name="link" description="Original phpass project page." link="http://www.openwall.com/phpass/"/>
+        <tag line="38" name="link" description="PHPass project at GitHub." link="https://github.com/rchouinard/phpass"/>
       </docblock>
       
       
       
-      <method final="false" abstract="false" static="false" visibility="public" line="102" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" line="101" package="Default">
         <name>__construct</name>
         <docblock>
           <description>Constructor</description>
@@ -82,34 +82,34 @@ second is an array of adapter options.&lt;/p&gt;
 &lt;p&gt;All three methods are currently supported, although this may change as
 I continue to use the class and gain feedback from other developers.&lt;/p&gt;
 </long-description>
-          <tag line="68" name="see" description="\Phpass::setOptions()" refers="\Phpass::setOptions()"/>
-          <tag line="68" name="param" description="" type="array|\Phpass\Adapter|string" variable="$options">
+          <tag line="67" name="see" description="\Phpass::setOptions()" refers="\Phpass::setOptions()"/>
+          <tag line="67" name="param" description="" type="array|\Phpass\Adapter|string" variable="$options">
             <type by_reference="false">array</type>
             <type by_reference="false">\Phpass\Adapter</type>
             <type by_reference="false">string</type>
           </tag>
-          <tag line="68" name="param" description="" type="array" variable="$adapterOptions">
+          <tag line="67" name="param" description="" type="array" variable="$adapterOptions">
             <type by_reference="false">array</type>
           </tag>
-          <tag line="68" name="return" description="" type="void">
+          <tag line="67" name="return" description="" type="void">
             <type by_reference="false">void</type>
           </tag>
-          <tag line="68" name="throws" description="" type="\Phpass\Exception\InvalidArgumentException">
+          <tag line="67" name="throws" description="" type="\Phpass\Exception\InvalidArgumentException">
             <type by_reference="false">\Phpass\Exception\InvalidArgumentException</type>
           </tag>
         </docblock>
-        <argument line="102">
+        <argument line="101">
           <name>$options</name>
           <default>array ()</default>
           <type/>
         </argument>
-        <argument line="102">
+        <argument line="101">
           <name>$adapterOptions</name>
           <default>array ()</default>
           <type>Array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="165" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" line="164" package="Default">
         <name>setOptions</name>
         <docblock>
           <description>Set library options</description>
@@ -133,106 +133,106 @@ I continue to use the class and gain feedback from other developers.&lt;/p&gt;
 
 &lt;/dl&gt;
 </long-description>
-          <tag line="138" name="see" description="\Phpass\Adapter\Base::setOptions()" refers="\Phpass\Adapter\Base::setOptions()"/>
-          <tag line="138" name="param" description="" type="array" variable="$options">
+          <tag line="137" name="see" description="\Phpass\Adapter\Base::setOptions()" refers="\Phpass\Adapter\Base::setOptions()"/>
+          <tag line="137" name="param" description="" type="array" variable="$options">
             <type by_reference="false">array</type>
           </tag>
-          <tag line="138" name="return" description="" type="\Phpass">
+          <tag line="137" name="return" description="" type="\Phpass">
             <type by_reference="false">\Phpass</type>
           </tag>
         </docblock>
-        <argument line="165">
+        <argument line="164">
           <name>$options</name>
           <default/>
           <type>Array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="199" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" line="198" package="Default">
         <name>getAdapter</name>
         <docblock>
           <description>Return the currently configured adapter</description>
           <long-description>
 </long-description>
-          <tag line="193" name="return" description="" type="\Phpass\Adapter">
+          <tag line="192" name="return" description="" type="\Phpass\Adapter">
             <type by_reference="false">\Phpass\Adapter</type>
           </tag>
-          <tag line="193" name="throws" description="" type="\Phpass\Exception\RuntimeException">
+          <tag line="192" name="throws" description="" type="\Phpass\Exception\RuntimeException">
             <type by_reference="false">\Phpass\Exception\RuntimeException</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="216" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" line="215" package="Default">
         <name>setAdapter</name>
         <docblock>
           <description>Pass in a configured adapter</description>
           <long-description>
 </long-description>
-          <tag line="208" name="param" description="" type="\Phpass\Adapter|string" variable="$adapter">
+          <tag line="207" name="param" description="" type="\Phpass\Adapter|string" variable="$adapter">
             <type by_reference="false">\Phpass\Adapter</type>
             <type by_reference="false">string</type>
           </tag>
-          <tag line="208" name="param" description="" type="array" variable="$options">
+          <tag line="207" name="param" description="" type="array" variable="$options">
             <type by_reference="false">array</type>
           </tag>
-          <tag line="208" name="return" description="" type="\Phpass">
+          <tag line="207" name="return" description="" type="\Phpass">
             <type by_reference="false">\Phpass</type>
           </tag>
-          <tag line="208" name="throws" description="" type="\Phpass\Exception\RuntimeException">
+          <tag line="207" name="throws" description="" type="\Phpass\Exception\RuntimeException">
             <type by_reference="false">\Phpass\Exception\RuntimeException</type>
           </tag>
         </docblock>
-        <argument line="216">
+        <argument line="215">
           <name>$adapter</name>
           <default/>
           <type/>
         </argument>
-        <argument line="216">
+        <argument line="215">
           <name>$options</name>
           <default>array ()</default>
           <type>Array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="240" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" line="239" package="Default">
         <name>checkPassword</name>
         <docblock>
           <description>Check that a given password matches a given hash</description>
           <long-description>
 </long-description>
-          <tag line="233" name="param" description="" type="string" variable="$password">
+          <tag line="232" name="param" description="" type="string" variable="$password">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="233" name="param" description="" type="string" variable="$storedHash">
+          <tag line="232" name="param" description="" type="string" variable="$storedHash">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="233" name="return" description="" type="boolean">
+          <tag line="232" name="return" description="" type="boolean">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="240">
+        <argument line="239">
           <name>$password</name>
           <default/>
           <type/>
         </argument>
-        <argument line="240">
+        <argument line="239">
           <name>$storedHash</name>
           <default/>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="252" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" line="251" package="Default">
         <name>hashPassword</name>
         <docblock>
           <description>Generate a hash from the given password</description>
           <long-description>
 </long-description>
-          <tag line="246" name="param" description="" type="string" variable="$password">
+          <tag line="245" name="param" description="" type="string" variable="$password">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="246" name="return" description="" type="string">
+          <tag line="245" name="return" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
-        <argument line="252">
+        <argument line="251">
           <name>$password</name>
           <default/>
           <type/>
@@ -563,7 +563,7 @@ I continue to use the class and gain feedback from other developers.&lt;/p&gt;
       </method>
     </class>
   </file>
-  <file path="Phpass/Adapter/Base.php" hash="d6ccb585db7e6d78e33e0b41b9f3ce32" package="PHPass\Adapters">
+  <file path="Phpass/Adapter/Base.php" hash="62fdf190f985d28e0d972028b5d59cf2" package="PHPass\Adapters">
     <docblock>
       <description>Portable PHP password hashing framework.</description>
       <long-description>
@@ -587,7 +587,7 @@ I continue to use the class and gain feedback from other developers.&lt;/p&gt;
       <critical line="98">No short description for method setOptions</critical>
       <critical line="120">No short description for method _encode64</critical>
       <critical line="151">No short description for method _getRandomBytes</critical>
-      <critical line="175">No short description for method factory</critical>
+      <critical line="186">No short description for method factory</critical>
     </parse_markers>
     <namespace-alias name="Adapter">Phpass\Adapter</namespace-alias>
     <namespace-alias name="InvalidArgumentException">Phpass\Exception\InvalidArgumentException</namespace-alias>
@@ -681,36 +681,166 @@ I continue to use the class and gain feedback from other developers.&lt;/p&gt;
       </method>
       
       
-      <method final="false" abstract="false" static="true" visibility="public" line="181" package="Default">
+      <method final="false" abstract="false" static="true" visibility="public" line="192" package="Default">
         <name>factory</name>
         <docblock>
           <description/>
           <long-description>
 </long-description>
-          <tag line="175" name="param" description="" type="string" variable="$adapter">
+          <tag line="186" name="param" description="" type="string" variable="$adapter">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="175" name="param" description="" type="array" variable="$options">
+          <tag line="186" name="param" description="" type="array" variable="$options">
             <type by_reference="false">array</type>
           </tag>
-          <tag line="175" name="return" description="" type="\Phpass\Adapter">
+          <tag line="186" name="return" description="" type="\Phpass\Adapter">
             <type by_reference="false">\Phpass\Adapter</type>
           </tag>
-          <tag line="175" name="throws" description="" type="\Phpass\Exception\InvalidArgumentException">
+          <tag line="186" name="throws" description="" type="\Phpass\Exception\InvalidArgumentException">
             <type by_reference="false">\Phpass\Exception\InvalidArgumentException</type>
           </tag>
         </docblock>
-        <argument line="181">
+        <argument line="192">
           <name>$adapter</name>
           <default/>
           <type/>
         </argument>
-        <argument line="181">
+        <argument line="192">
           <name>$options</name>
           <default>array ()</default>
           <type>Array</type>
         </argument>
       </method>
+    </class>
+  </file>
+  <file path="Phpass/Adapter/Pbkdf2.php" hash="3cee2648d943e9dc4a87a38e866b3562" package="PHPass\Adapters">
+    <docblock>
+      <description>Portable PHP password hashing framework.</description>
+      <long-description>
+</long-description>
+      <tag line="2" name="package" description="PHPass"/>
+      <tag line="2" name="subpackage" description="Adapters"/>
+      <tag line="2" name="category" description="Cryptography"/>
+      <tag line="2" name="author" description="Solar Designer &lt;solar at openwall.com&gt;"/>
+      <tag line="2" name="author" description="Ryan Chouinard &lt;rchouinard at gmail.com&gt;"/>
+      <tag line="2" name="license" description="http://www.opensource.org/licenses/mit-license.html MIT License"/>
+      <tag line="2" name="link" description="Original phpass project page." link="http://www.openwall.com/phpass/"/>
+      <tag line="2" name="link" description="PHPass project at GitHub." link="https://github.com/rchouinard/phpass"/>
+    </docblock>
+    <parse_markers>
+      <critical line="52">No short description for property $_algo</critical>
+      <critical line="57">No short description for method __construct</critical>
+      <notice line="73">Argument $password is missing from the function Docblock</notice>
+      <notice line="73">Argument $setting is missing from the function Docblock</notice>
+      <notice line="113">Argument $input is missing from the function Docblock</notice>
+      <notice line="147">Argument $hash is missing from the function Docblock</notice>
+      <notice line="170">Argument $algo is missing from the function Docblock</notice>
+    </parse_markers>
+    <namespace-alias name="InvalidArgumentException">Phpass\Exception\InvalidArgumentException</namespace-alias>
+    <namespace-alias name="RuntimeException">Phpass\Exception\RuntimeException</namespace-alias>
+    <include type="Require Once" line="25">
+      <name>Phpass/Adapter/Base.php</name>
+    </include>
+    <include type="Require Once" line="30">
+      <name>Phpass/Exception/InvalidArgumentException.php</name>
+    </include>
+    <include type="Require Once" line="35">
+      <name>Phpass/Exception/RuntimeException.php</name>
+    </include>
+    <class final="false" abstract="false" line="49" namespace="Phpass\Adapter" package="PHPass\Adapters">
+      <name>Pbkdf2</name>
+      <extends>\Phpass\Adapter\Base</extends>
+      <full_name>\Phpass\Adapter\Pbkdf2</full_name>
+      <docblock>
+        <description>Portable PHP password hashing framework.</description>
+        <long-description>
+</long-description>
+        <tag line="37" name="package" description="PHPass"/>
+        <tag line="37" name="subpackage" description="Adapters"/>
+        <tag line="37" name="category" description="Cryptography"/>
+        <tag line="37" name="author" description="Solar Designer &lt;solar at openwall.com&gt;"/>
+        <tag line="37" name="author" description="Ryan Chouinard &lt;rchouinard at gmail.com&gt;"/>
+        <tag line="37" name="license" description="http://www.opensource.org/licenses/mit-license.html MIT License"/>
+        <tag line="37" name="link" description="Original phpass project page." link="http://www.openwall.com/phpass/"/>
+        <tag line="37" name="link" description="PHPass project at GitHub." link="https://github.com/rchouinard/phpass"/>
+      </docblock>
+      
+      <method final="false" abstract="false" static="false" visibility="public" line="61" package="Default">
+        <name>__construct</name>
+        <docblock>
+          <description/>
+          <long-description>
+</long-description>
+          <tag line="57" name="param" description="" type="array" variable="$options">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="57" name="return" description="" type="void">
+            <type by_reference="false">void</type>
+          </tag>
+        </docblock>
+        <argument line="61">
+          <name>$options</name>
+          <default>array ()</default>
+          <type>Array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="73" package="Default">
+        <name>crypt</name>
+        <docblock>
+          <description>(non-PHPdoc)</description>
+          <long-description>
+</long-description>
+          <tag line="69" name="see" description="\Phpass\Adapter\Base::crypt()" refers="\Phpass\Adapter\Base::crypt()"/>
+        </docblock>
+        <argument line="73">
+          <name>$password</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="73">
+          <name>$setting</name>
+          <default>null</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="113" package="Default">
+        <name>genSalt</name>
+        <docblock>
+          <description>(non-PHPdoc)</description>
+          <long-description>
+</long-description>
+          <tag line="109" name="see" description="\Phpass\Adapter::genSalt()" refers="\Phpass\Adapter::genSalt()"/>
+        </docblock>
+        <argument line="113">
+          <name>$input</name>
+          <default>null</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="138" package="Default">
+        <name>isSupported</name>
+        <docblock>
+          <description>(non-PHPdoc)</description>
+          <long-description>
+</long-description>
+          <tag line="134" name="see" description="\Phpass\Adapter::isSupported()" refers="\Phpass\Adapter::isSupported()"/>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="147" package="Default">
+        <name>isValid</name>
+        <docblock>
+          <description>(non-PHPdoc)</description>
+          <long-description>
+</long-description>
+          <tag line="143" name="see" description="\Phpass\Adapter::isValid()" refers="\Phpass\Adapter::isValid()"/>
+        </docblock>
+        <argument line="147">
+          <name>$hash</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      
     </class>
   </file>
   <file path="Phpass/Adapter/Blowfish.php" hash="98a86d86676e811e8d8f74a22d35da1b" package="PHPass\Adapters">

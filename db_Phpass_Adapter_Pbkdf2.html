@@ -77,7 +77,7 @@
       });
 
       
-    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">Phpass/Adapter/Base.php</h1>
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">Phpass/Adapter/Pbkdf2.php</h1>
 <div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
 <div id="file-nav-options">
               Show:
@@ -87,7 +87,7 @@
 <ul id="file-nav"><li>
 <a href="#classes"><img src="images/icons/class.png" height="14">
                           Classes
-                      </a><ul><li><a href="#%5CPhpass%5CAdapter%5CBase">\Phpass\Adapter\Base</a></li></ul>
+                      </a><ul><li><a href="#%5CPhpass%5CAdapter%5CPbkdf2">\Phpass\Adapter\Pbkdf2</a></li></ul>
 </li></ul>
 <div style="clear: left;"></div>
 </div>
@@ -137,20 +137,15 @@
          
     </dd>
 </dl>
-<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Phpass\Adapter\Base" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Phpass\Adapter\Base<div class="to-top"><a href="#top">jump to top</a></div>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Phpass\Adapter\Pbkdf2" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Phpass\Adapter\Pbkdf2<div class="to-top"><a href="#top">jump to top</a></div>
 </h2>
 <div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
 <small class="package"><b>Package: </b>PHPass\Adapters</small><p class="short-description">Portable PHP password hashing framework.</p>
 <div class="long-description">
 </div>
 <dl class="class-info">
-<dt>Implements</dt>
-<dd><a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter">\Phpass\Adapter</a></dd>
-<dt>Children</dt>
-<dd><a href="db_Phpass_Adapter_Portable.html#%5CPhpass%5CAdapter%5CPortable">\Phpass\Adapter\Portable</a></dd>
-<dd><a href="db_Phpass_Adapter_ExtDes.html#%5CPhpass%5CAdapter%5CExtDes">\Phpass\Adapter\ExtDes</a></dd>
-<dd><a href="db_Phpass_Adapter_Pbkdf2.html#%5CPhpass%5CAdapter%5CPbkdf2">\Phpass\Adapter\Pbkdf2</a></dd>
-<dd><a href="db_Phpass_Adapter_Blowfish.html#%5CPhpass%5CAdapter%5CBlowfish">\Phpass\Adapter\Blowfish</a></dd>
+<dt>Parent(s)</dt>
+<dd><a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase">\Phpass\Adapter\Base</a></dd>
 <dt>Author</dt>
 <dd>Solar Designer <solar at openwall.com>
          
@@ -181,7 +176,7 @@
 </dl>
 <h3>Methods</h3>
 <div>
-<a id="\Phpass\Adapter\Base::__construct()" class="anchor"></a><div class="method public">
+<a id="\Phpass\Adapter\Pbkdf2::__construct()" class="anchor"></a><div class="method public">
 <a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
           array $options
               =
@@ -208,9 +203,9 @@
 </div>
 <div class="clear"></div>
 </div>
-<a id="\Phpass\Adapter\Base::crypt()" class="anchor"></a><div class="method public">
+<a id="\Phpass\Adapter\Pbkdf2::crypt()" class="anchor"></a><div class="method public">
 <a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">crypt</span><span class="nb-faded-text">(
-          string $password, string $salt
+          string $password,  $setting
               =
               null
           )
@@ -232,8 +227,8 @@
 <td><em></em></td>
 </tr>
 <tr>
-<th>$salt</th>
-<td>string</td>
+<th>$setting</th>
+<td></td>
 <td><em></em></td>
 </tr>
 </table>
@@ -250,14 +245,14 @@
 <strong>Details</strong><dl class="function-info">
 <dt>See</dt>
 <dd>
-<a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter::crypt()">\Phpass\Adapter::crypt()</a>
+<a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase::crypt()">\Phpass\Adapter\Base::crypt()</a>
          
     </dd>
 </dl>
 </div>
 <div class="clear"></div>
 </div>
-<a id="\Phpass\Adapter\Base::factory()" class="anchor"></a><div class="method public">
+<a id="\Phpass\Adapter\Pbkdf2::factory()" class="anchor"></a><div class="method public inherited_from ">
 <a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">factory</span><span class="nb-faded-text">(
           string $adapter, array $options
               =
@@ -266,7 +261,9 @@
         </span>
         :
           <a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter">\Phpass\Adapter</a></code><div class="description">
-<span class="attribute">static</span><p class="short_description"></p>
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description"></p>
+<small>Inherited from:
+                    <a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase::factory()">\Phpass\Adapter\Base::factory()</a></small>
 </div>
 <div class="code-tabs">
 <div class="long-description">
@@ -311,17 +308,15 @@
 </div>
 <div class="clear"></div>
 </div>
-<a id="\Phpass\Adapter\Base::genSalt()" class="anchor"></a><div class="method public inherited_from ">
+<a id="\Phpass\Adapter\Pbkdf2::genSalt()" class="anchor"></a><div class="method public">
 <a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">genSalt</span><span class="nb-faded-text">(
           string $input
+              =
+              null
           )
         </span>
         :
-          string</code><div class="description">
-<span class="attribute">inherited</span><p class="short_description"></p>
-<small>Inherited from:
-                    <a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter::genSalt()">\Phpass\Adapter::genSalt()</a></small>
-</div>
+          string</code><div class="description"><p class="short_description">(non-PHPdoc)</p></div>
 <div class="code-tabs">
 <div class="long-description">
 </div>
@@ -347,20 +342,23 @@
 <td></td>
 </tr>
 </table>
+<strong>Details</strong><dl class="function-info">
+<dt>See</dt>
+<dd>
+<a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter::genSalt()">\Phpass\Adapter::genSalt()</a>
+         
+    </dd>
+</dl>
 </div>
 <div class="clear"></div>
 </div>
-<a id="\Phpass\Adapter\Base::isSupported()" class="anchor"></a><div class="method public inherited_from ">
+<a id="\Phpass\Adapter\Pbkdf2::isSupported()" class="anchor"></a><div class="method public">
 <a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isSupported</span><span class="nb-faded-text">(
           
           )
         </span>
         :
-          boolean</code><div class="description">
-<span class="attribute">inherited</span><p class="short_description"></p>
-<small>Inherited from:
-                    <a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter::isSupported()">\Phpass\Adapter::isSupported()</a></small>
-</div>
+          boolean</code><div class="description"><p class="short_description">(non-PHPdoc)</p></div>
 <div class="code-tabs">
 <div class="long-description">
 </div>
@@ -374,20 +372,23 @@
 <td></td>
 </tr>
 </table>
+<strong>Details</strong><dl class="function-info">
+<dt>See</dt>
+<dd>
+<a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter::isSupported()">\Phpass\Adapter::isSupported()</a>
+         
+    </dd>
+</dl>
 </div>
 <div class="clear"></div>
 </div>
-<a id="\Phpass\Adapter\Base::isValid()" class="anchor"></a><div class="method public inherited_from ">
+<a id="\Phpass\Adapter\Pbkdf2::isValid()" class="anchor"></a><div class="method public">
 <a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isValid</span><span class="nb-faded-text">(
           string $hash
           )
         </span>
         :
-          boolean</code><div class="description">
-<span class="attribute">inherited</span><p class="short_description"></p>
-<small>Inherited from:
-                    <a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter::isValid()">\Phpass\Adapter::isValid()</a></small>
-</div>
+          boolean</code><div class="description"><p class="short_description">(non-PHPdoc)</p></div>
 <div class="code-tabs">
 <div class="long-description">
 </div>
@@ -413,16 +414,27 @@
 <td></td>
 </tr>
 </table>
+<strong>Details</strong><dl class="function-info">
+<dt>See</dt>
+<dd>
+<a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter::isValid()">\Phpass\Adapter::isValid()</a>
+         
+    </dd>
+</dl>
 </div>
 <div class="clear"></div>
 </div>
-<a id="\Phpass\Adapter\Base::setOptions()" class="anchor"></a><div class="method public">
+<a id="\Phpass\Adapter\Pbkdf2::setOptions()" class="anchor"></a><div class="method public inherited_from ">
 <a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setOptions</span><span class="nb-faded-text">(
           array $options
           )
         </span>
         :
-          void</code><div class="description"><p class="short_description"></p></div>
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description"></p>
+<small>Inherited from:
+                    <a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase::setOptions()">\Phpass\Adapter\Base::setOptions()</a></small>
+</div>
 <div class="code-tabs">
 <div class="long-description">
 </div>
