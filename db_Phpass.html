@@ -168,6 +168,87 @@
          
     </dd>
 </dl>
+<h3>Properties</h3>
+<div>
+<a id="\Phpass::$_adapter" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Phpass\Adapter
+                 <span class="highlight">$_adapter</span>= ''
+                </code><div class="description">
+<p class="short-description">Instance of adapter to use for hashing.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>Defaults to an instance of Phpass\Adapter\Blowfish configured with
+iterationCountLog2 set to 12 if none is given otherwise.</p>
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter">\Phpass\Adapter</a></dd>
+<dt>See</dt>
+<dd>
+<a href="db_Phpass.html#%5CPhpass::setAdapter()">\Phpass::setAdapter()</a>
+         
+    </dd>
+<dt>See</dt>
+<dd>
+<a href="db_Phpass.html#%5CPhpass::setOptions()">\Phpass::setOptions()</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Phpass::$_hmacAlgo" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_hmacAlgo</span>= ''
+                </code><div class="description">
+<p class="short-description">Algorithm to use with HMAC.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>Defaults to sha256 if not otherwise specified.</p>
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>See</dt>
+<dd>
+<a href="db_Phpass.html#%5CPhpass::setOptions()">\Phpass::setOptions()</a>
+         
+    </dd>
+<dt>See</dt>
+<dd>
+<a href="db_Phpass.html#%5CPhpass::%24_hmacKey">\Phpass::$_hmacKey</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Phpass::$_hmacKey" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_hmacKey</span>= ''
+                </code><div class="description">
+<p class="short-description">Key to use with HMAC.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>If set, the password string given to either Phpass::hashPassword()
+or Phpass::checkPassword() is passed through hash_hmac() before
+it is passed to the adapter.</p>
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>See</dt>
+<dd>
+<a href="db_Phpass.html#%5CPhpass::setOptions()">\Phpass::setOptions()</a>
+         
+    </dd>
+<dt>See</dt>
+<dd>
+<a href="db_Phpass.html#%5CPhpass::%24_hmacAlgo">\Phpass::$_hmacAlgo</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
 <h3>Methods</h3>
 <div>
 <a id="\Phpass::__construct()" class="anchor"></a><div class="method public">
@@ -180,32 +261,56 @@
           )
         </span>
         :
-          void</code><div class="description"><p class="short_description">Constructor</p></div>
+          void</code><div class="description"><p class="short_description">Class constructor.</p></div>
 <div class="code-tabs">
-<div class="long-description"><p>I'm still debating on the API here. I can see three valid ways of
-instantiating the class, all of which have merit.</p>
+<div class="long-description"><p>There are three ways to configure the class via the constructor.</p>
 
-<p>The first, and most verbose method, is to use an $options array to pass
-everything, including the adapter type and adapter options. This is the
-most flexible method, and is probably preferred moving forward.</p>
+<ul>
+<li><p>Pass an associative array containing class options as the first
+argument to the constructor.</p>
 
-<p>$phpass = new Phpass($myOptionsArray);</p>
+<pre><code>&lt;?php
+$phpass = new Phpass(array (
+    'adapter' =&gt; array (
+        'type' =&gt; 'blowfish',
+        'options' =&gt; array (
+            'iterationCountLog2' =&gt; 12
+        )
+    ),
+    'hmacAlgo' =&gt; 'sha256',
+    'hmacKey' =&gt; 'mySuperSecretKey'
+));
+</code></pre></li>
+<li><p>Pass a pre-configured adapter as the first argument to the
+constructor. This method blocks passing non-adapter options to the
+class via the constructor, though. Developers would need to call
+Phpass::setOptions() in order to do so.</p>
 
-<p>The second is to pass in a previously instantiated adapter, presumably
-already configured. This method will probably continue to be supported
-along with the first.</p>
+<pre><code>&lt;?php
+$adapter = new Phpass\Adapter\Blowfish(array (
+    'iterationCountLog2' =&gt; 12
+));
+$phpass = new Phpass($adapter);
+$phpass-&gt;setOptions(array (
+    'hmacAlgo' =&gt; 'sha256',
+    'hmacKey' =&gt; 'mySuperSecretKey'
+));
+</code></pre></li>
+<li><p>Pass a string representing the name of an adapter as the first
+constructor argument, and an associative array of adapter options as
+the second. This method also necessitates the use of
+Phpass::setOptions() in order to pass class options.</p>
 
-<p>$adapter = new Phpass\Adapter\Blowfish($myAdapterOptions);
-  $phpass = new Phpass($adapter);</p>
-
-<p>The third way is in-line with the way Zend_Db and similar operate. The
-first argument is a string giving the name of the adapter type, and the
-second is an array of adapter options.</p>
-
-<p>$phpass = new Phpass('blowfish', $myAdapterOptions);</p>
-
-<p>All three methods are currently supported, although this may change as
-I continue to use the class and gain feedback from other developers.</p>
+<pre><code>&lt;?php
+$phpass = new Phpass('blowfish', array (
+    'iterationCountLog2' =&gt; 12
+));
+$phpass-&gt;setOptions(array (
+    'hmacAlgo' =&gt; 'sha256',
+    'hmacKey' =&gt; 'mySuperSecretKey'
+));
+</code></pre></li>
+</ul>
 </div>
 <strong>Parameters</strong><table class="argument-info">
 <thead><tr>
@@ -216,12 +321,13 @@ I continue to use the class and gain feedback from other developers.</p>
 <tr>
 <th>$options</th>
 <td>array|<a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter">\Phpass\Adapter</a>|string</td>
-<td><em></em></td>
+<td><em><p>Either an associative array of options, a string naming an adapter, or an instance of a class implementing Phpass\Adapter.</p>
+</em></td>
 </tr>
 <tr>
 <th>$adapterOptions</th>
 <td>array</td>
-<td><em></em></td>
+<td><em><p>Optional; If the first argument is a string, the second should be an associative array of adapter options.</p></em></td>
 </tr>
 </table>
 <strong>Throws</strong><table class="argument-info">
@@ -231,7 +337,7 @@ I continue to use the class and gain feedback from other developers.</p>
 </tr></thead>
 <tr>
 <td><a href="db_Phpass_Exception_InvalidArgumentException.html#%5CPhpass%5CException%5CInvalidArgumentException">\Phpass\Exception\InvalidArgumentException</a></td>
-<td><em></em></td>
+<td><em>Thrown if $options isn't valid.</em></td>
 </tr>
 </table>
 <strong>Details</strong><dl class="function-info">
@@ -244,13 +350,67 @@ I continue to use the class and gain feedback from other developers.</p>
 </div>
 <div class="clear"></div>
 </div>
+<a id="\Phpass::_crypt()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_crypt</span><span class="nb-faded-text">(
+          string $password, string $salt
+              =
+              null
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Proxy method to Phpass\Adapter::crypt()</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>Additional processing of the password string is performed if
+Phpass::$_hmacKey is set.</p>
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$password</th>
+<td>string</td>
+<td><em><p>The plain-text password string.</p>
+</em></td>
+</tr>
+<tr>
+<th>$salt</th>
+<td>string</td>
+<td><em><p>Optional; The salt or stored hash value used to generate a new hash.</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>Hashed version of the password string.</td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Phpass_Exception_UnexpectedValueException.html#%5CPhpass%5CException%5CUnexpectedValueException">\Phpass\Exception\UnexpectedValueException</a></td>
+<td><em>Thrown if the adapter returns an invalid hash value.</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
 <a id="\Phpass::checkPassword()" class="anchor"></a><div class="method public">
 <a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">checkPassword</span><span class="nb-faded-text">(
           string $password, string $storedHash
           )
         </span>
         :
-          boolean</code><div class="description"><p class="short_description">Check that a given password matches a given hash</p></div>
+          boolean</code><div class="description"><p class="short_description">Check that a password string matches a given hash.</p></div>
 <div class="code-tabs">
 <div class="long-description">
 </div>
@@ -263,12 +423,13 @@ I continue to use the class and gain feedback from other developers.</p>
 <tr>
 <th>$password</th>
 <td>string</td>
-<td><em></em></td>
+<td><em><p>The plain-text password string.</p>
+</em></td>
 </tr>
 <tr>
 <th>$storedHash</th>
 <td>string</td>
-<td><em></em></td>
+<td><em><p>The stored hash value to compare against.</p></em></td>
 </tr>
 </table>
 <strong>Returns</strong><table class="argument-info">
@@ -278,7 +439,7 @@ I continue to use the class and gain feedback from other developers.</p>
 </tr></thead>
 <tr>
 <td>boolean</td>
-<td></td>
+<td>True if password string matches the stored hash, false otherwise.</td>
 </tr>
 </table>
 </div>
@@ -290,7 +451,7 @@ I continue to use the class and gain feedback from other developers.</p>
           )
         </span>
         :
-          <a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter">\Phpass\Adapter</a></code><div class="description"><p class="short_description">Return the currently configured adapter</p></div>
+          <a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter">\Phpass\Adapter</a></code><div class="description"><p class="short_description">Get the currently configured adapter instance.</p></div>
 <div class="code-tabs">
 <div class="long-description">
 </div>
@@ -301,7 +462,7 @@ I continue to use the class and gain feedback from other developers.</p>
 </tr></thead>
 <tr>
 <td><a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter">\Phpass\Adapter</a></td>
-<td></td>
+<td>Instance of a class which implements Phpass\Adapter.</td>
 </tr>
 </table>
 <strong>Throws</strong><table class="argument-info">
@@ -311,7 +472,7 @@ I continue to use the class and gain feedback from other developers.</p>
 </tr></thead>
 <tr>
 <td><a href="db_Phpass_Exception_RuntimeException.html#%5CPhpass%5CException%5CRuntimeException">\Phpass\Exception\RuntimeException</a></td>
-<td><em></em></td>
+<td><em>Thrown if no adapter is configured.</em></td>
 </tr>
 </table>
 </div>
@@ -323,7 +484,7 @@ I continue to use the class and gain feedback from other developers.</p>
           )
         </span>
         :
-          string</code><div class="description"><p class="short_description">Generate a hash from the given password</p></div>
+          string</code><div class="description"><p class="short_description">Generate a hash from a password string.</p></div>
 <div class="code-tabs">
 <div class="long-description">
 </div>
@@ -336,7 +497,8 @@ I continue to use the class and gain feedback from other developers.</p>
 <tr>
 <th>$password</th>
 <td>string</td>
-<td><em></em></td>
+<td><em><p>the plain-text password string.</p>
+</em></td>
 </tr>
 </table>
 <strong>Returns</strong><table class="argument-info">
@@ -346,7 +508,7 @@ I continue to use the class and gain feedback from other developers.</p>
 </tr></thead>
 <tr>
 <td>string</td>
-<td></td>
+<td>Hashed version of the password string.</td>
 </tr>
 </table>
 </div>
@@ -360,7 +522,7 @@ I continue to use the class and gain feedback from other developers.</p>
           )
         </span>
         :
-          <a href="db_Phpass.html#%5CPhpass">\Phpass</a></code><div class="description"><p class="short_description">Pass in a configured adapter</p></div>
+          <a href="db_Phpass.html#%5CPhpass">\Phpass</a></code><div class="description"><p class="short_description">Set a configured adapter instance.</p></div>
 <div class="code-tabs">
 <div class="long-description">
 </div>
@@ -374,12 +536,13 @@ I continue to use the class and gain feedback from other developers.</p>
 <th>$adapter</th>
 <td>
 <a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter">\Phpass\Adapter</a>|string</td>
-<td><em></em></td>
+<td><em><p>Either a string naming an adapter or an instance of a class implementing Phpass\Adapter.</p>
+</em></td>
 </tr>
 <tr>
 <th>$options</th>
 <td>array</td>
-<td><em></em></td>
+<td><em><p>Optional; If the first argument is a string, the second should be an associative array of adapter options.</p></em></td>
 </tr>
 </table>
 <strong>Returns</strong><table class="argument-info">
@@ -389,7 +552,7 @@ I continue to use the class and gain feedback from other developers.</p>
 </tr></thead>
 <tr>
 <td><a href="db_Phpass.html#%5CPhpass">\Phpass</a></td>
-<td></td>
+<td>Instance of Phpass for chaining.</td>
 </tr>
 </table>
 <strong>Throws</strong><table class="argument-info">
@@ -399,7 +562,7 @@ I continue to use the class and gain feedback from other developers.</p>
 </tr></thead>
 <tr>
 <td><a href="db_Phpass_Exception_RuntimeException.html#%5CPhpass%5CException%5CRuntimeException">\Phpass\Exception\RuntimeException</a></td>
-<td><em></em></td>
+<td><em>Thrown if the adapter isn't supported on the system.</em></td>
 </tr>
 </table>
 </div>
@@ -411,27 +574,24 @@ I continue to use the class and gain feedback from other developers.</p>
           )
         </span>
         :
-          <a href="db_Phpass.html#%5CPhpass">\Phpass</a></code><div class="description"><p class="short_description">Set library options</p></div>
+          <a href="db_Phpass.html#%5CPhpass">\Phpass</a></code><div class="description"><p class="short_description">Set class options.</p></div>
 <div class="code-tabs">
-<div class="long-description"><dl>
+<div class="long-description"><p><dt>adapter</dt>
+  <dd>Optional; Either an instance of a class which implements
+  Phpass\Adapter or an associative array. The array should contain at
+  least a 'type' key with the name of an adapter as a string. An
+  'options' key may also be specified, containing an associative array
+  of adapter options. See Phpass\Adapter\Base::setOptions() for
+  details.</dd></p>
 
-    <dt>adapter</dt>
-    <dd>May be either a concrete instance of Phpass\Adapter or an array.
-    The adapter array should contain at least a 'type' key with the name
-    of the desired adapter, and optionally an 'options' key containing
-    an array of options to pass to the adapter. See
-    Phpass\Adapter\Base::setOptions() for details.</dd>
+<p><dt>hmacKey</dt>
+  <dd>Optional; Key used to generate HMAC hashes. If omitted, HMAC
+  hashing is disabled.</dd></p>
 
-    <dt>hmacKey</dt>
-    <dd>Optional; Application-wide key used to generate HMAC hashes.
-    If omitted, HMAC hashing is disabled.</dd>
-
-    <dt>hmacAlgo</dt>
-    <dd>Optional; String naming one of the many hashing algorithms
-    available. A full list may be retrieved from the hash_algos()
-    function. Defaults to sha256.</dd>
-
-</dl>
+<p><dt>hmacAlgo</dt>
+  <dd>Optional; String naming one of the many hashing algorithms
+  available. A full list may be retrieved from the hash_algos()
+  function. Defaults to sha256.</dd></p>
 </div>
 <strong>Parameters</strong><table class="argument-info">
 <thead><tr>
@@ -442,7 +602,7 @@ I continue to use the class and gain feedback from other developers.</p>
 <tr>
 <th>$options</th>
 <td>array</td>
-<td><em></em></td>
+<td><em><p>An associative array containing class options.</p></em></td>
 </tr>
 </table>
 <strong>Returns</strong><table class="argument-info">
@@ -452,7 +612,21 @@ I continue to use the class and gain feedback from other developers.</p>
 </tr></thead>
 <tr>
 <td><a href="db_Phpass.html#%5CPhpass">\Phpass</a></td>
-<td></td>
+<td>Instance of Phpass for chaining.</td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Phpass_Exception_RuntimeException.html#%5CPhpass%5CException%5CRuntimeException">\Phpass\Exception\RuntimeException</a></td>
+<td><em>Thrown if an HMAC key has been provided, but the required hash extension isn't loaded.</em></td>
+</tr>
+<tr>
+<td><a href="db_Phpass_Exception_InvalidArgumentException.html#%5CPhpass%5CException%5CInvalidArgumentException">\Phpass\Exception\InvalidArgumentException</a></td>
+<td><em>Thrown if an HMAC key has been provided, but the chosen algorithm isn't supported on the system.</em></td>
 </tr>
 </table>
 <strong>Details</strong><dl class="function-info">

@@ -179,6 +179,62 @@
          
     </dd>
 </dl>
+<h3>Properties</h3>
+<div>
+<a id="\Phpass\Adapter\Base::$_iterationCountLog2" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">integer
+                 <span class="highlight">$_iterationCountLog2</span>= ''
+                </code><div class="description">
+<p class="short-description">Binary logarithm value used in password stretching.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>This number determines the cost of calculating hash values for the
+various adapters. This value should be between 4 and 30, representing a
+total cost of 2^x, or 16 and 1,073,741,824, respectively.</p>
+
+<p>Each adapter may treat this number differently. Generally, a calculated
+value of 256 means that the password string is iteratively hashed 256
+times, which increases the time and CPU cost associated with generating
+the hash value.</p>
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>integer</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Phpass\Adapter\Base::$_itoa64" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_itoa64</span>= ''
+                </code><div class="description">
+<p class="short-description">String of ASCII characters used in itoa64 operations.</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Phpass\Adapter\Base::$_randomState" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_randomState</span>= ''
+                </code><div class="description">
+<p class="short-description">Cached random data.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>This value is used when better methods of generating random data are
+unavailable.</p>
+</div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
 <h3>Methods</h3>
 <div>
 <a id="\Phpass\Adapter\Base::__construct()" class="anchor"></a><div class="method public">
@@ -189,7 +245,7 @@
           )
         </span>
         :
-          void</code><div class="description"><p class="short_description"></p></div>
+          void</code><div class="description"><p class="short_description">Class constructor.</p></div>
 <div class="code-tabs">
 <div class="long-description">
 </div>
@@ -202,7 +258,72 @@
 <tr>
 <th>$options</th>
 <td>array</td>
+<td><em><p>Optional; Associative array of adapter options.</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Phpass\Adapter\Base::_encode64()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_encode64</span><span class="nb-faded-text">(
+          string $input, integer $count
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Encode binary data.</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$input</th>
+<td>string</td>
 <td><em></em></td>
+</tr>
+<tr>
+<th>$count</th>
+<td>integer</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Phpass\Adapter\Base::_getRandomBytes()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_getRandomBytes</span><span class="nb-faded-text">(
+          integer $count
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Generate random data.</p></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$count</th>
+<td>integer</td>
+<td><em><p>Number of bytes to generate.</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>String containg requisite number of random bytes.</td>
 </tr>
 </table>
 </div>
@@ -216,7 +337,7 @@
           )
         </span>
         :
-          string</code><div class="description"><p class="short_description">(non-PHPdoc)</p></div>
+          string</code><div class="description"><p class="short_description">Generate a hash based on the password string.</p></div>
 <div class="code-tabs">
 <div class="long-description">
 </div>
@@ -229,12 +350,13 @@
 <tr>
 <th>$password</th>
 <td>string</td>
-<td><em></em></td>
+<td><em><p>The plain-text password string.</p>
+</em></td>
 </tr>
 <tr>
 <th>$salt</th>
 <td>string</td>
-<td><em></em></td>
+<td><em><p>Optional; The salt or stored hash value used to generate a new hash.</p></em></td>
 </tr>
 </table>
 <strong>Returns</strong><table class="argument-info">
@@ -244,7 +366,7 @@
 </tr></thead>
 <tr>
 <td>string</td>
-<td></td>
+<td>Hashed version of the password string.</td>
 </tr>
 </table>
 <strong>Details</strong><dl class="function-info">
@@ -266,7 +388,7 @@
         </span>
         :
           <a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter">\Phpass\Adapter</a></code><div class="description">
-<span class="attribute">static</span><p class="short_description"></p>
+<span class="attribute">static</span><p class="short_description">Adapter factory.</p>
 </div>
 <div class="code-tabs">
 <div class="long-description">
@@ -280,12 +402,12 @@
 <tr>
 <th>$adapter</th>
 <td>string</td>
-<td><em></em></td>
+<td><em><p>String represnting an adapter name.</p></em></td>
 </tr>
 <tr>
 <th>$options</th>
 <td>array</td>
-<td><em></em></td>
+<td><em><p>Optional; Associative array of adapter options.</p></em></td>
 </tr>
 </table>
 <strong>Returns</strong><table class="argument-info">
@@ -295,7 +417,7 @@
 </tr></thead>
 <tr>
 <td><a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter">\Phpass\Adapter</a></td>
-<td></td>
+<td>Instance of a class which implements Phpass\Adapter.</td>
 </tr>
 </table>
 <strong>Throws</strong><table class="argument-info">
@@ -305,7 +427,11 @@
 </tr></thead>
 <tr>
 <td><a href="db_Phpass_Exception_InvalidArgumentException.html#%5CPhpass%5CException%5CInvalidArgumentException">\Phpass\Exception\InvalidArgumentException</a></td>
-<td><em></em></td>
+<td><em>Thrown when first argument is not a string.</em></td>
+</tr>
+<tr>
+<td><a href="db_Phpass_Exception_RuntimeException.html#%5CPhpass%5CException%5CRuntimeException">\Phpass\Exception\RuntimeException</a></td>
+<td><em>Thrown when the adapter cannot be loaded.</em></td>
 </tr>
 </table>
 </div>
@@ -314,11 +440,13 @@
 <a id="\Phpass\Adapter\Base::genSalt()" class="anchor"></a><div class="method public inherited_from ">
 <a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">genSalt</span><span class="nb-faded-text">(
           string $input
+              =
+              null
           )
         </span>
         :
           string</code><div class="description">
-<span class="attribute">inherited</span><p class="short_description"></p>
+<span class="attribute">inherited</span><p class="short_description">Generate a salt string suitable for use with the adapter.</p>
 <small>Inherited from:
                     <a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter::genSalt()">\Phpass\Adapter::genSalt()</a></small>
 </div>
@@ -334,7 +462,7 @@
 <tr>
 <th>$input</th>
 <td>string</td>
-<td><em></em></td>
+<td><em><p>Optional; Random data used to generate the salt.</p></em></td>
 </tr>
 </table>
 <strong>Returns</strong><table class="argument-info">
@@ -344,7 +472,7 @@
 </tr></thead>
 <tr>
 <td>string</td>
-<td></td>
+<td>Generated salt string.</td>
 </tr>
 </table>
 </div>
@@ -357,7 +485,7 @@
         </span>
         :
           boolean</code><div class="description">
-<span class="attribute">inherited</span><p class="short_description"></p>
+<span class="attribute">inherited</span><p class="short_description">Check if the adapter is supported on the system.</p>
 <small>Inherited from:
                     <a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter::isSupported()">\Phpass\Adapter::isSupported()</a></small>
 </div>
@@ -371,7 +499,7 @@
 </tr></thead>
 <tr>
 <td>boolean</td>
-<td></td>
+<td>True if the system has all the required dependencies to use the adapter, false otherwise.</td>
 </tr>
 </table>
 </div>
@@ -384,7 +512,7 @@
         </span>
         :
           boolean</code><div class="description">
-<span class="attribute">inherited</span><p class="short_description"></p>
+<span class="attribute">inherited</span><p class="short_description">Check if a hash is compatible with the adapter.</p>
 <small>Inherited from:
                     <a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter::isValid()">\Phpass\Adapter::isValid()</a></small>
 </div>
@@ -400,7 +528,7 @@
 <tr>
 <th>$hash</th>
 <td>string</td>
-<td><em></em></td>
+<td><em><p>Password hash string.</p></em></td>
 </tr>
 </table>
 <strong>Returns</strong><table class="argument-info">
@@ -410,7 +538,7 @@
 </tr></thead>
 <tr>
 <td>boolean</td>
-<td></td>
+<td>True if the hash is compatible with the adapter, false otherwise.</td>
 </tr>
 </table>
 </div>
@@ -422,7 +550,7 @@
           )
         </span>
         :
-          void</code><div class="description"><p class="short_description"></p></div>
+          void</code><div class="description"><p class="short_description">Configure the adapter.</p></div>
 <div class="code-tabs">
 <div class="long-description">
 </div>
@@ -435,7 +563,7 @@
 <tr>
 <th>$options</th>
 <td>array</td>
-<td><em></em></td>
+<td><em><p>Associative array of adapter options.</p></em></td>
 </tr>
 </table>
 </div>

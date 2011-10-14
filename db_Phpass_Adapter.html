@@ -178,7 +178,7 @@
           )
         </span>
         :
-          string</code><div class="description"><p class="short_description"></p></div>
+          string</code><div class="description"><p class="short_description">Generate a hash based on the password string.</p></div>
 <div class="code-tabs">
 <div class="long-description">
 </div>
@@ -191,12 +191,13 @@
 <tr>
 <th>$password</th>
 <td>string</td>
-<td><em></em></td>
+<td><em><p>The plain-text password string.</p>
+</em></td>
 </tr>
 <tr>
 <th>$salt</th>
 <td>string</td>
-<td><em></em></td>
+<td><em><p>Optional; The salt or stored hash value used to generate a new hash.</p></em></td>
 </tr>
 </table>
 <strong>Returns</strong><table class="argument-info">
@@ -206,7 +207,7 @@
 </tr></thead>
 <tr>
 <td>string</td>
-<td></td>
+<td>Hashed version of the password string.</td>
 </tr>
 </table>
 </div>
@@ -215,10 +216,12 @@
 <a id="\Phpass\Adapter::genSalt()" class="anchor"></a><div class="method public">
 <a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">genSalt</span><span class="nb-faded-text">(
           string $input
+              =
+              null
           )
         </span>
         :
-          string</code><div class="description"><p class="short_description"></p></div>
+          string</code><div class="description"><p class="short_description">Generate a salt string suitable for use with the adapter.</p></div>
 <div class="code-tabs">
 <div class="long-description">
 </div>
@@ -231,7 +234,7 @@
 <tr>
 <th>$input</th>
 <td>string</td>
-<td><em></em></td>
+<td><em><p>Optional; Random data used to generate the salt.</p></em></td>
 </tr>
 </table>
 <strong>Returns</strong><table class="argument-info">
@@ -241,7 +244,7 @@
 </tr></thead>
 <tr>
 <td>string</td>
-<td></td>
+<td>Generated salt string.</td>
 </tr>
 </table>
 </div>
@@ -253,7 +256,7 @@
           )
         </span>
         :
-          boolean</code><div class="description"><p class="short_description"></p></div>
+          boolean</code><div class="description"><p class="short_description">Check if the adapter is supported on the system.</p></div>
 <div class="code-tabs">
 <div class="long-description">
 </div>
@@ -264,7 +267,7 @@
 </tr></thead>
 <tr>
 <td>boolean</td>
-<td></td>
+<td>True if the system has all the required dependencies to use the adapter, false otherwise.</td>
 </tr>
 </table>
 </div>
@@ -276,7 +279,7 @@
           )
         </span>
         :
-          boolean</code><div class="description"><p class="short_description"></p></div>
+          boolean</code><div class="description"><p class="short_description">Check if a hash is compatible with the adapter.</p></div>
 <div class="code-tabs">
 <div class="long-description">
 </div>
@@ -289,7 +292,7 @@
 <tr>
 <th>$hash</th>
 <td>string</td>
-<td><em></em></td>
+<td><em><p>Password hash string.</p></em></td>
 </tr>
 </table>
 <strong>Returns</strong><table class="argument-info">
@@ -299,7 +302,7 @@
 </tr></thead>
 <tr>
 <td>boolean</td>
-<td></td>
+<td>True if the hash is compatible with the adapter, false otherwise.</td>
 </tr>
 </table>
 </div>
