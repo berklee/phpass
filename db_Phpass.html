@@ -1,4 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>PHPass</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>DocBlox Documentation</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
             $(document).ready(function() {
                 $(".filetree").treeview({
                     collapsed: true,
@@ -18,10 +18,10 @@
 
       function filterElements()
       {
-        inherited = !$('a#show-inherited').hasClass('deselected');
-        public    = !$('a#show-public').hasClass('deselected');
-        protected = !$('a#show-protected').hasClass('deselected');
-        private   = !$('a#show-private').hasClass('deselected');
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
 
         $('div.public').each(function(index, val) {
             $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
@@ -65,7 +65,7 @@
                 filterElements();
                 return false;
             });
-        $('a#show-protected, a#show-private').click();
+        $('#show-protected, #show-private').click();
 
         // add the sliding behaviour to the file navigation and show it
         // it is initially hidden for non-JS users.
@@ -97,8 +97,7 @@
 </div>
 <a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
 <p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Portable PHP password hashing framework.</p>
-<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description">
-</div>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"></div>
 </div>
 <dl class="file-info">
 <dt xmlns:dbx="http://docblox-project.org/xsl/functions">Author</dt>
@@ -137,8 +136,7 @@
 </h2>
 <div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
 <small class="package"><b>Package: </b>PHPass</small><p class="short-description">Portable PHP password hashing framework.</p>
-<div class="long-description">
-</div>
+<div class="long-description"></div>
 <dl class="class-info">
 <dt>Author</dt>
 <dd>Solar Designer <solar at openwall.com>
@@ -177,8 +175,7 @@
 <p class="short-description">Instance of adapter to use for hashing.</p></div>
 <div class="code-tabs">
 <div class="long-description"><p>Defaults to an instance of Phpass\Adapter\Blowfish configured with
-iterationCountLog2 set to 12 if none is given otherwise.</p>
-</div>
+iterationCountLog2 set to 12 if none is given otherwise.</p></div>
 <strong>Details</strong><dl class="property-info">
 <dt>Type</dt>
 <dd><a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter">\Phpass\Adapter</a></dd>
@@ -202,8 +199,7 @@ iterationCountLog2 set to 12 if none is given otherwise.</p>
                 </code><div class="description">
 <p class="short-description">Algorithm to use with HMAC.</p></div>
 <div class="code-tabs">
-<div class="long-description"><p>Defaults to sha256 if not otherwise specified.</p>
-</div>
+<div class="long-description"><p>Defaults to sha256 if not otherwise specified.</p></div>
 <strong>Details</strong><dl class="property-info">
 <dt>Type</dt>
 <dd>string</dd>
@@ -229,8 +225,7 @@ iterationCountLog2 set to 12 if none is given otherwise.</p>
 <div class="code-tabs">
 <div class="long-description"><p>If set, the password string given to either Phpass::hashPassword()
 or Phpass::checkPassword() is passed through hash_hmac() before
-it is passed to the adapter.</p>
-</div>
+it is passed to the adapter.</p></div>
 <strong>Details</strong><dl class="property-info">
 <dt>Type</dt>
 <dd>string</dd>
@@ -253,7 +248,7 @@ it is passed to the adapter.</p>
 <div>
 <a id="\Phpass::__construct()" class="anchor"></a><div class="method public">
 <a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
-          array|<a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter">\Phpass\Adapter</a>|string $options
+          array | <a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter">\Phpass\Adapter</a> | string $options
               =
               array (), array $adapterOptions
               =
@@ -310,8 +305,7 @@ $phpass-&gt;setOptions(array (
     'hmacKey' =&gt; 'mySuperSecretKey'
 ));
 </code></pre></li>
-</ul>
-</div>
+</ul></div>
 <strong>Parameters</strong><table class="argument-info">
 <thead><tr>
 <th>Name</th>
@@ -320,7 +314,7 @@ $phpass-&gt;setOptions(array (
 </tr></thead>
 <tr>
 <th>$options</th>
-<td>array|<a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter">\Phpass\Adapter</a>|string</td>
+<td>array | <a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter">\Phpass\Adapter</a> | string</td>
 <td><em><p>Either an associative array of options, a string naming an adapter, or an instance of a class implementing Phpass\Adapter.</p>
 </em></td>
 </tr>
@@ -361,8 +355,7 @@ $phpass-&gt;setOptions(array (
           string</code><div class="description"><p class="short_description">Proxy method to Phpass\Adapter::crypt()</p></div>
 <div class="code-tabs">
 <div class="long-description"><p>Additional processing of the password string is performed if
-Phpass::$_hmacKey is set.</p>
-</div>
+Phpass::$_hmacKey is set.</p></div>
 <strong>Parameters</strong><table class="argument-info">
 <thead><tr>
 <th>Name</th>
@@ -412,8 +405,7 @@ Phpass::$_hmacKey is set.</p>
         :
           boolean</code><div class="description"><p class="short_description">Check that a password string matches a given hash.</p></div>
 <div class="code-tabs">
-<div class="long-description">
-</div>
+<div class="long-description"></div>
 <strong>Parameters</strong><table class="argument-info">
 <thead><tr>
 <th>Name</th>
@@ -453,8 +445,7 @@ Phpass::$_hmacKey is set.</p>
         :
           <a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter">\Phpass\Adapter</a></code><div class="description"><p class="short_description">Get the currently configured adapter instance.</p></div>
 <div class="code-tabs">
-<div class="long-description">
-</div>
+<div class="long-description"></div>
 <strong>Returns</strong><table class="argument-info">
 <thead><tr>
 <th>Type</th>
@@ -486,8 +477,7 @@ Phpass::$_hmacKey is set.</p>
         :
           string</code><div class="description"><p class="short_description">Generate a hash from a password string.</p></div>
 <div class="code-tabs">
-<div class="long-description">
-</div>
+<div class="long-description"></div>
 <strong>Parameters</strong><table class="argument-info">
 <thead><tr>
 <th>Name</th>
@@ -516,7 +506,7 @@ Phpass::$_hmacKey is set.</p>
 </div>
 <a id="\Phpass::setAdapter()" class="anchor"></a><div class="method public">
 <a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setAdapter</span><span class="nb-faded-text">(
-          <a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter">\Phpass\Adapter</a>|string $adapter, array $options
+          <a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter">\Phpass\Adapter</a> | string $adapter, array $options
               =
               array ()
           )
@@ -524,8 +514,7 @@ Phpass::$_hmacKey is set.</p>
         :
           <a href="db_Phpass.html#%5CPhpass">\Phpass</a></code><div class="description"><p class="short_description">Set a configured adapter instance.</p></div>
 <div class="code-tabs">
-<div class="long-description">
-</div>
+<div class="long-description"></div>
 <strong>Parameters</strong><table class="argument-info">
 <thead><tr>
 <th>Name</th>
@@ -535,7 +524,7 @@ Phpass::$_hmacKey is set.</p>
 <tr>
 <th>$adapter</th>
 <td>
-<a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter">\Phpass\Adapter</a>|string</td>
+<a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter">\Phpass\Adapter</a> | string</td>
 <td><em><p>Either a string naming an adapter or an instance of a class implementing Phpass\Adapter.</p>
 </em></td>
 </tr>
@@ -591,8 +580,7 @@ Phpass::$_hmacKey is set.</p>
 <p><dt>hmacAlgo</dt>
   <dd>Optional; String naming one of the many hashing algorithms
   available. A full list may be retrieved from the hash_algos()
-  function. Defaults to sha256.</dd></p>
-</div>
+  function. Defaults to sha256.</dd></p></div>
 <strong>Parameters</strong><table class="argument-info">
 <thead><tr>
 <th>Name</th>
@@ -642,5 +630,5 @@ Phpass::$_hmacKey is set.</p>
 </div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.15.0</a>.
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.18.1</a>.
     </small></body></html>

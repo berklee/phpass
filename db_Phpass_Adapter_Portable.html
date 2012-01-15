@@ -1,4 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>PHPass</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>DocBlox Documentation</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
             $(document).ready(function() {
                 $(".filetree").treeview({
                     collapsed: true,
@@ -18,10 +18,10 @@
 
       function filterElements()
       {
-        inherited = !$('a#show-inherited').hasClass('deselected');
-        public    = !$('a#show-public').hasClass('deselected');
-        protected = !$('a#show-protected').hasClass('deselected');
-        private   = !$('a#show-private').hasClass('deselected');
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
 
         $('div.public').each(function(index, val) {
             $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
@@ -65,7 +65,7 @@
                 filterElements();
                 return false;
             });
-        $('a#show-protected, a#show-private').click();
+        $('#show-protected, #show-private').click();
 
         // add the sliding behaviour to the file navigation and show it
         // it is initially hidden for non-JS users.
@@ -97,8 +97,7 @@
 </div>
 <a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
 <p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Portable PHP password hashing framework.</p>
-<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description">
-</div>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"></div>
 </div>
 <dl class="file-info">
 <dt xmlns:dbx="http://docblox-project.org/xsl/functions">Author</dt>
@@ -141,11 +140,15 @@
 </h2>
 <div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
 <small class="package"><b>Package: </b>PHPass\Adapters</small><p class="short-description">Portable PHP password hashing framework.</p>
-<div class="long-description">
-</div>
+<div class="long-description"></div>
 <dl class="class-info">
 <dt>Parent(s)</dt>
-<dd><a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase">\Phpass\Adapter\Base</a></dd>
+<dd>
+<a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase">\Phpass\Adapter\Base</a>
+            &lt;
+            <a href="db_Phpass_Adapter.html#%5CPhpass%5CAdapter" style="color: gray; font-size: 0.8em
+                ">\Phpass\Adapter</a>
+</dd>
 <dt>Author</dt>
 <dd>Solar Designer <solar at openwall.com>
          
@@ -181,7 +184,7 @@
                  <span class="highlight">$_iterationCountLog2</span>= ''
                 </code><div class="description">
 <span class="attribute">inherited</span><p class="short-description">Binary logarithm value used in password stretching.</p><small>Inherited from:
-                        <a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase::%24_iterationCountLog2">\Phpass\Adapter\Base::$_iterationCountLog2</a></small>
+                        <a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase::%24%24_iterationCountLog2">\Phpass\Adapter\Base::$$_iterationCountLog2</a></small>
 </div>
 <div class="code-tabs">
 <div class="long-description"><p>This number determines the cost of calculating hash values for the
@@ -191,14 +194,13 @@ total cost of 2^x, or 16 and 1,073,741,824, respectively.</p>
 <p>Each adapter may treat this number differently. Generally, a calculated
 value of 256 means that the password string is iteratively hashed 256
 times, which increases the time and CPU cost associated with generating
-the hash value.</p>
-</div>
+the hash value.</p></div>
 <strong>Details</strong><dl class="property-info">
 <dt>Type</dt>
 <dd>integer</dd>
 <dt>Inherited_from</dt>
 <dd>
-<a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase::%24_iterationCountLog2">\Phpass\Adapter\Base::$_iterationCountLog2</a>
+<a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase::%24%24_iterationCountLog2">\Phpass\Adapter\Base::$$_iterationCountLog2</a>
          
     </dd>
 </dl>
@@ -210,17 +212,16 @@ the hash value.</p>
                  <span class="highlight">$_itoa64</span>= ''
                 </code><div class="description">
 <span class="attribute">inherited</span><p class="short-description">String of ASCII characters used in itoa64 operations.</p><small>Inherited from:
-                        <a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase::%24_itoa64">\Phpass\Adapter\Base::$_itoa64</a></small>
+                        <a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase::%24%24_itoa64">\Phpass\Adapter\Base::$$_itoa64</a></small>
 </div>
 <div class="code-tabs">
-<div class="long-description">
-</div>
+<div class="long-description"></div>
 <strong>Details</strong><dl class="property-info">
 <dt>Type</dt>
 <dd>string</dd>
 <dt>Inherited_from</dt>
 <dd>
-<a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase::%24_itoa64">\Phpass\Adapter\Base::$_itoa64</a>
+<a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase::%24%24_itoa64">\Phpass\Adapter\Base::$$_itoa64</a>
          
     </dd>
 </dl>
@@ -232,18 +233,17 @@ the hash value.</p>
                  <span class="highlight">$_randomState</span>= ''
                 </code><div class="description">
 <span class="attribute">inherited</span><p class="short-description">Cached random data.</p><small>Inherited from:
-                        <a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase::%24_randomState">\Phpass\Adapter\Base::$_randomState</a></small>
+                        <a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase::%24%24_randomState">\Phpass\Adapter\Base::$$_randomState</a></small>
 </div>
 <div class="code-tabs">
 <div class="long-description"><p>This value is used when better methods of generating random data are
-unavailable.</p>
-</div>
+unavailable.</p></div>
 <strong>Details</strong><dl class="property-info">
 <dt>Type</dt>
 <dd>string</dd>
 <dt>Inherited_from</dt>
 <dd>
-<a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase::%24_randomState">\Phpass\Adapter\Base::$_randomState</a>
+<a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase::%24%24_randomState">\Phpass\Adapter\Base::$$_randomState</a>
          
     </dd>
 </dl>
@@ -267,8 +267,7 @@ unavailable.</p>
                     <a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase::__construct()">\Phpass\Adapter\Base::__construct()</a></small>
 </div>
 <div class="code-tabs">
-<div class="long-description">
-</div>
+<div class="long-description"></div>
 <strong>Parameters</strong><table class="argument-info">
 <thead><tr>
 <th>Name</th>
@@ -296,8 +295,7 @@ unavailable.</p>
                     <a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase::_encode64()">\Phpass\Adapter\Base::_encode64()</a></small>
 </div>
 <div class="code-tabs">
-<div class="long-description">
-</div>
+<div class="long-description"></div>
 <strong>Parameters</strong><table class="argument-info">
 <thead><tr>
 <th>Name</th>
@@ -330,8 +328,7 @@ unavailable.</p>
                     <a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase::_getRandomBytes()">\Phpass\Adapter\Base::_getRandomBytes()</a></small>
 </div>
 <div class="code-tabs">
-<div class="long-description">
-</div>
+<div class="long-description"></div>
 <strong>Parameters</strong><table class="argument-info">
 <thead><tr>
 <th>Name</th>
@@ -359,16 +356,15 @@ unavailable.</p>
 </div>
 <a id="\Phpass\Adapter\Portable::crypt()" class="anchor"></a><div class="method public">
 <a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">crypt</span><span class="nb-faded-text">(
-          string $password,  $setting
+           $password,  $setting
               =
               null
           )
         </span>
         :
-          string</code><div class="description"><p class="short_description">Generate a hash based on the password string.</p></div>
+          void</code><div class="description"><p class="short_description"></p></div>
 <div class="code-tabs">
-<div class="long-description">
-</div>
+<div class="long-description"></div>
 <strong>Parameters</strong><table class="argument-info">
 <thead><tr>
 <th>Name</th>
@@ -377,24 +373,13 @@ unavailable.</p>
 </tr></thead>
 <tr>
 <th>$password</th>
-<td>string</td>
-<td><em><p>The plain-text password string.</p>
-</em></td>
+<td></td>
+<td><em></em></td>
 </tr>
 <tr>
 <th>$setting</th>
 <td></td>
 <td><em></em></td>
-</tr>
-</table>
-<strong>Returns</strong><table class="argument-info">
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tr>
-<td>string</td>
-<td>Hashed version of the password string.</td>
 </tr>
 </table>
 <strong>Details</strong><dl class="function-info">
@@ -421,8 +406,7 @@ unavailable.</p>
                     <a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase::factory()">\Phpass\Adapter\Base::factory()</a></small>
 </div>
 <div class="code-tabs">
-<div class="long-description">
-</div>
+<div class="long-description"></div>
 <strong>Parameters</strong><table class="argument-info">
 <thead><tr>
 <th>Name</th>
@@ -469,16 +453,15 @@ unavailable.</p>
 </div>
 <a id="\Phpass\Adapter\Portable::genSalt()" class="anchor"></a><div class="method public">
 <a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">genSalt</span><span class="nb-faded-text">(
-          string $input
+           $input
               =
               null
           )
         </span>
         :
-          string</code><div class="description"><p class="short_description">Generate a salt string suitable for use with the adapter.</p></div>
+          void</code><div class="description"><p class="short_description"></p></div>
 <div class="code-tabs">
-<div class="long-description">
-</div>
+<div class="long-description"></div>
 <strong>Parameters</strong><table class="argument-info">
 <thead><tr>
 <th>Name</th>
@@ -487,18 +470,8 @@ unavailable.</p>
 </tr></thead>
 <tr>
 <th>$input</th>
-<td>string</td>
-<td><em><p>Optional; Random data used to generate the salt.</p></em></td>
-</tr>
-</table>
-<strong>Returns</strong><table class="argument-info">
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tr>
-<td>string</td>
-<td>Generated salt string.</td>
+<td></td>
+<td><em></em></td>
 </tr>
 </table>
 <strong>Details</strong><dl class="function-info">
@@ -517,20 +490,9 @@ unavailable.</p>
           )
         </span>
         :
-          boolean</code><div class="description"><p class="short_description">Check if the adapter is supported on the system.</p></div>
+          void</code><div class="description"><p class="short_description"></p></div>
 <div class="code-tabs">
-<div class="long-description">
-</div>
-<strong>Returns</strong><table class="argument-info">
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tr>
-<td>boolean</td>
-<td>True if the system has all the required dependencies to use the adapter, false otherwise.</td>
-</tr>
-</table>
+<div class="long-description"></div>
 <strong>Details</strong><dl class="function-info">
 <dt>See</dt>
 <dd>
@@ -543,14 +505,13 @@ unavailable.</p>
 </div>
 <a id="\Phpass\Adapter\Portable::isValid()" class="anchor"></a><div class="method public">
 <a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isValid</span><span class="nb-faded-text">(
-          string $hash
+           $hash
           )
         </span>
         :
-          boolean</code><div class="description"><p class="short_description">Check if a hash is compatible with the adapter.</p></div>
+          void</code><div class="description"><p class="short_description"></p></div>
 <div class="code-tabs">
-<div class="long-description">
-</div>
+<div class="long-description"></div>
 <strong>Parameters</strong><table class="argument-info">
 <thead><tr>
 <th>Name</th>
@@ -559,18 +520,8 @@ unavailable.</p>
 </tr></thead>
 <tr>
 <th>$hash</th>
-<td>string</td>
-<td><em><p>Password hash string.</p></em></td>
-</tr>
-</table>
-<strong>Returns</strong><table class="argument-info">
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tr>
-<td>boolean</td>
-<td>True if the hash is compatible with the adapter, false otherwise.</td>
+<td></td>
+<td><em></em></td>
 </tr>
 </table>
 <strong>Details</strong><dl class="function-info">
@@ -595,8 +546,7 @@ unavailable.</p>
                     <a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase::setOptions()">\Phpass\Adapter\Base::setOptions()</a></small>
 </div>
 <div class="code-tabs">
-<div class="long-description">
-</div>
+<div class="long-description"></div>
 <strong>Parameters</strong><table class="argument-info">
 <thead><tr>
 <th>Name</th>
@@ -615,5 +565,5 @@ unavailable.</p>
 </div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.15.0</a>.
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.18.1</a>.
     </small></body></html>

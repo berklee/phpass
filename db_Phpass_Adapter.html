@@ -1,4 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>PHPass</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>DocBlox Documentation</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
             $(document).ready(function() {
                 $(".filetree").treeview({
                     collapsed: true,
@@ -18,10 +18,10 @@
 
       function filterElements()
       {
-        inherited = !$('a#show-inherited').hasClass('deselected');
-        public    = !$('a#show-public').hasClass('deselected');
-        protected = !$('a#show-protected').hasClass('deselected');
-        private   = !$('a#show-private').hasClass('deselected');
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
 
         $('div.public').each(function(index, val) {
             $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
@@ -65,7 +65,7 @@
                 filterElements();
                 return false;
             });
-        $('a#show-protected, a#show-private').click();
+        $('#show-protected, #show-private').click();
 
         // add the sliding behaviour to the file navigation and show it
         // it is initially hidden for non-JS users.
@@ -93,8 +93,7 @@
 </div>
 <a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
 <p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Portable PHP password hashing framework.</p>
-<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description">
-</div>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"></div>
 </div>
 <dl class="file-info">
 <dt xmlns:dbx="http://docblox-project.org/xsl/functions">Author</dt>
@@ -137,9 +136,10 @@
 </h2>
 <div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
 <small class="package"><b>Package: </b>PHPass\Adapters</small><p class="short-description">Portable PHP password hashing framework.</p>
-<div class="long-description">
-</div>
+<div class="long-description"></div>
 <dl class="class-info">
+<dt>Children</dt>
+<dd><a href="db_Phpass_Adapter_Base.html#%5CPhpass%5CAdapter%5CBase">\Phpass\Adapter\Base</a></dd>
 <dt>Author</dt>
 <dd>Solar Designer <solar at openwall.com>
          
@@ -180,8 +180,7 @@
         :
           string</code><div class="description"><p class="short_description">Generate a hash based on the password string.</p></div>
 <div class="code-tabs">
-<div class="long-description">
-</div>
+<div class="long-description"></div>
 <strong>Parameters</strong><table class="argument-info">
 <thead><tr>
 <th>Name</th>
@@ -223,8 +222,7 @@
         :
           string</code><div class="description"><p class="short_description">Generate a salt string suitable for use with the adapter.</p></div>
 <div class="code-tabs">
-<div class="long-description">
-</div>
+<div class="long-description"></div>
 <strong>Parameters</strong><table class="argument-info">
 <thead><tr>
 <th>Name</th>
@@ -258,8 +256,7 @@
         :
           boolean</code><div class="description"><p class="short_description">Check if the adapter is supported on the system.</p></div>
 <div class="code-tabs">
-<div class="long-description">
-</div>
+<div class="long-description"></div>
 <strong>Returns</strong><table class="argument-info">
 <thead><tr>
 <th>Type</th>
@@ -281,8 +278,7 @@
         :
           boolean</code><div class="description"><p class="short_description">Check if a hash is compatible with the adapter.</p></div>
 <div class="code-tabs">
-<div class="long-description">
-</div>
+<div class="long-description"></div>
 <strong>Parameters</strong><table class="argument-info">
 <thead><tr>
 <th>Name</th>
@@ -311,5 +307,5 @@
 </div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.15.0</a>.
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.18.1</a>.
     </small></body></html>
