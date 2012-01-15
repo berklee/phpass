@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project version="0.18.1" title="">
+<project version="0.18.1" title="PHPass">
   <file path="Phpass/Adapter.php" hash="b14e1dfbdc60cf5703d9754cd61956d2" package="PHPass\Adapters">
     <docblock line="2">
       <description><![CDATA[Portable PHP password hashing framework.]]></description>
