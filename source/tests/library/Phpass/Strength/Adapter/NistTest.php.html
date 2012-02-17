@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+/**
+ * PHP Password Library
+ *
+ * @package PHPass
+ * @subpackage Tests
+ * @category Cryptography
+ * @author Ryan Chouinard &lt;rchouinard at gmail.com&gt;
+ * @license http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link https://github.com/rchouinard/phpass PHPass project at GitHub.
+ */
+
+/**
+ * @namespace
+ */
+namespace Phpass\Strength\Adapter;
+
+/**
+ * PHP Password Library
+ *
+ * @package PHPass
+ * @subpackage Tests
+ * @category Cryptography
+ * @author Ryan Chouinard &lt;rchouinard at gmail.com&gt;
+ * @license http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link https://github.com/rchouinard/phpass PHPass project at GitHub.
+ */
+class NistTest extends \PHPUnit_Framework_TestCase
+{
+
+    /**
+     * @test
+     * @return void
+     */
+    public function checkMethodCalculatesExpectedResult()
+    {
+        $adapter = new Nist;
+        $this-&gt;assertEquals( 0, $adapter-&gt;check(''));
+        $this-&gt;assertEquals( 4, $adapter-&gt;check('M'));
+        $this-&gt;assertEquals( 6, $adapter-&gt;check('My'));
+        $this-&gt;assertEquals(18, $adapter-&gt;check('MySuperS'));
+        $this-&gt;assertEquals(36, $adapter-&gt;check('MySuperSecretPasswor'));
+        $this-&gt;assertEquals(37, $adapter-&gt;check('MySuperSecretPassword'));
+        $this-&gt;assertEquals(43, $adapter-&gt;check('Super!Secret*Password'));
+    }
+
+}</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all()
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

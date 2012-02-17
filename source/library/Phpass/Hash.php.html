@@ -1,0 +1,301 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+/**
+ * PHP Password Library
+ *
+ * @package PHPass
+ * @subpackage Hash
+ * @category Cryptography
+ * @author Ryan Chouinard &lt;rchouinard at gmail.com&gt;
+ * @license http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link https://github.com/rchouinard/phpass PHPass project at GitHub.
+ */
+
+/**
+ * @namespace
+ */
+namespace Phpass;
+use Phpass\Hash\Adapter,
+    Phpass\Hash\Adapter\Blowfish,
+    Phpass\Exception\InvalidArgumentException,
+    Phpass\Exception\RuntimeException;
+
+/**
+ * PHPass Hash Class
+ *
+ * This class provides a simple API for working with the various hash adapters.
+ * When instantiated with no arguments, it creates an instance of
+ * \Phpass\Hash\Adapter\Blowfish, configured for 2^12 (or 4,096) iterations.
+ * It is also possible to configure the class to use HMAC to provide some extra
+ * security where needed.
+ *
+ * &lt;code&gt;
+ * &lt;?php
+ * // Just use the defaults (works well in most cases)
+ * $phpassHash = new \Phpass\Hash;
+ *
+ * // Generate a password hash
+ * $passwordHash = $phpassHash-&gt;hashPassword($password);
+ *
+ * // Check a password
+ * if ($phpassHash-&gt;checkPassword($password, $passwordHash)) {
+ *     // ...
+ * }
+ * &lt;/code&gt;
+ *
+ * @package PHPass
+ * @subpackage Hash
+ * @category Cryptography
+ * @author Ryan Chouinard &lt;rchouinard at gmail.com&gt;
+ * @license http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link https://github.com/rchouinard/phpass PHPass project at GitHub.
+ */
+class Hash
+{
+
+    /**
+     * Instance of the adapter to use for hashing password strings.
+     *
+     * @var \Phpass\Hash\Adapter
+     */
+    protected $_adapter;
+
+    /**
+     * Name of selected HMAC hashing algorithm.
+     *
+     * See hash_algos() for a list of supported algorithms.
+     *
+     * @var string
+     */
+    protected $_hmacAlgo;
+
+    /**
+     * Shared secret for generating the HMAC variant of the password string.
+     *
+     * @var string
+     */
+    protected $_hmacKey;
+
+    /**
+     * Class constructor.
+     *
+     * Accepts either an associative array of option key value pairs, or a
+     * concrete instance of \Phpass\Hash\Adapter. If neither is given, or if the
+     * 'adapter' option key is omitted, an instance of
+     * \Phpass\Hash\Adapter\Blowfish is used by default.
+     *
+     * &lt;code&gt;
+     * &lt;?php
+     * // Just use the defaults (works for most cases)
+     * $phpassHash = new \Phpass\Hash;
+     *
+     * // Customize the adapter
+     * $adapter = new \Phpass\Hash\Adapter\Pbkdf2(array (
+     *     'iterationCountLog2' =&gt; 12 // 2^12 = 4096 iterations
+     * ));
+     * $phpassHash = new \Phpass\Hash($adapter);
+     *
+     * // Customize the adapter as well as use additional HMAC hashing
+     * $options = array (
+     *     'adapter' =&gt; new \Phpass\Hash\Adapter\ExtDes,
+     *     'hmacKey' =&gt; 'mys3cr3tk3y',
+     *     'hmacAlgo' =&gt; 'sha512'
+     * );
+     * $phpassHash = new \Phpass\Hash($options);
+     * &lt;/code&gt;
+     *
+     * @param array|\Phpass\Hash\Adapter $options
+     *   Either an associative array of options, or an instance of
+     *   \Phpass\Hash\Adapter.
+     * @return void
+     */
+    public function __construct($options = array ())
+    {
+        // Default adapter
+        $this-&gt;_adapter = new Blowfish(array (
+            'iterationCountLog2' =&gt; 12 // 2^12 = 4096 iterations
+        ));
+
+        // Default HMAC algorithm
+        $this-&gt;_hmacAlgo = 'sha256';
+
+        if ($options instanceof Adapter) {
+            $options = array (
+                'adapter' =&gt; $options
+            );
+        }
+
+        if (!is_array($options)) {
+            throw new InvalidArgumentException('Expected either an array, or an instance of Phpass\\Hash\\Adapter.');
+        }
+
+        $this-&gt;setOptions($options);
+    }
+
+    /**
+     * Set the adapter to use for hashing password strings.
+     *
+     * @param \Phpass\Hash\Adapter $adapter
+     *   An instance of \Phpass\Hash\Adapter.
+     * @return \Phpass\Hash
+     */
+    public function setAdapter(Adapter $adapter)
+    {
+        $this-&gt;_adapter = $adapter;
+        return $this;
+    }
+
+    /**
+     * Retrieve the adapter used for hashing password strings.
+     *
+     * @return \Phpass\Hash\Adapter
+     */
+    public function getAdapter()
+    {
+        return $this-&gt;_adapter;
+    }
+
+    /**
+     * Set instance options.
+     *
+     * Available options:
+     *   - adapter: An instance of Phpass\Hash\Adapter.
+     *   - hmacKey: A string used as the key in optional HMAC hashing.
+     *   - hmacAlgo: The name of the hashing algorithm to use for HMAC hashing.
+     *
+     * @param array $options
+     *   An associative array of options.
+     * @return \Phpass\Hash
+     */
+    public function setOptions(Array $options)
+    {
+        $options = array_change_key_case($options, CASE_LOWER);
+        if (array_key_exists('hmackey', $options) || array_key_exists('hmacalgo', $options)) {
+            if (!extension_loaded('hash')) {
+                throw new RuntimeException(&quot;Required extension 'hash' is not loaded.&quot;);
+            }
+        }
+
+        foreach ($options as $option =&gt; $value) {
+            switch ($option) {
+                case 'adapter':
+                    if (!$value instanceof Adapter) {
+                        throw new InvalidArgumentException(&quot;Value of key 'adapter' must be an instance of Phpass\\Hash\\Adapter.&quot;);
+                    }
+                    $this-&gt;setAdapter($value);
+                    break;
+                case 'hmackey':
+                    $this-&gt;_hmacKey = (string) $value;
+                    break;
+                case 'hmacalgo':
+                    if (!in_array($value, hash_algos())) {
+                        throw new RuntimeException(&quot;Given hash algorithm '${value}' is not supported.&quot;);
+                    }
+                    $this-&gt;_hmacAlgo = $value;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Check if a password string matches a given hash value.
+     *
+     * @param string $password
+     *   The password string to check.
+     * @param string $storedHash
+     *   The hash string to check against.
+     * @return boolean
+     *   Returns true if the password matches the hash, and false otherwise.
+     */
+    public function checkPassword($password, $storedHash)
+    {
+        $hash = $this-&gt;_crypt($password, $storedHash);
+        return ($hash == $storedHash);
+    }
+
+    /**
+     * Create a hash from a given password using the configured adapter.
+     *
+     * @param string $password
+     *   The password string from which to derive the hash value.
+     * @return string
+     *   Returns the derived hash value.
+     */
+    public function hashPassword($password)
+    {
+        return $this-&gt;_crypt($password);
+    }
+
+    /**
+     * Derive a hash value from the given password string, optionally using a
+     * pre-calculated salt.
+     *
+     * If self::$_hmacKey is set, this method will generate the HMAC hash of
+     * the password string before passing the value to the adapter.
+     *
+     * @param string $password
+     *   The password string.
+     * @param string $salt
+     *   The hash string which contains the stored salt value.
+     * @return string
+     *   Returns the derived hash value.
+     */
+    protected function _crypt($password, $salt = null)
+    {
+        if (isset($this-&gt;_hmacKey)) {
+            $password = hash_hmac($this-&gt;_hmacAlgo, $password, $this-&gt;_hmacKey);
+        }
+        $adapter = $this-&gt;getAdapter();
+        $hash = $adapter-&gt;crypt($password, $salt);
+
+        return $hash;
+    }
+
+}</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all()
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

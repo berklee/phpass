@@ -1,0 +1,309 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+/**
+ * PHP Password Library
+ *
+ * @package PHPass
+ * @subpackage Strength
+ * @category Cryptography
+ * @author Ryan Chouinard &lt;rchouinard at gmail.com&gt;
+ * @license http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link https://github.com/rchouinard/phpass PHPass project at GitHub.
+ */
+
+/**
+ * @namespace
+ */
+namespace Phpass\Strength\Adapter;
+
+/**
+ * PHPass Strength Adapter for the Wolfram|Alpha Algorithm
+ *
+ * @package PHPass
+ * @subpackage Strength
+ * @category Cryptography
+ * @author Ryan Chouinard &lt;rchouinard at gmail.com&gt;
+ * @license http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link https://github.com/rchouinard/phpass PHPass project at GitHub.
+ */
+class Wolfram extends Base
+{
+
+    /**
+     * @see \Phpass\Strength\Adapter::check()
+     */
+    public function check($password)
+    {
+        $this-&gt;_analyze($password);
+
+        $this-&gt;_score  = $this-&gt;_calculateBaseScore();
+        $this-&gt;_score += $this-&gt;_calculateLetterScore();
+        $this-&gt;_score += $this-&gt;_calculateNumberScore();
+        $this-&gt;_score += $this-&gt;_calculateSymbolScore();
+        $this-&gt;_score += $this-&gt;_calculateMiddleNumberOrSymbolScore();
+
+        if ($this-&gt;_getClassCount(self::CLASS_LETTER) == $this-&gt;_length || $this-&gt;_getClassCount(self::CLASS_NUMBER) == $this-&gt;_length) {
+            $this-&gt;_score -= $this-&gt;_length;
+        }
+
+        $this-&gt;_score += $this-&gt;_calculateRepeatTokenScore();
+
+        if ($this-&gt;_length &gt; 2) {
+            $this-&gt;_score += $this-&gt;_calculateConsecutiveTokenScore(self::CLASS_UPPER);
+            $this-&gt;_score += $this-&gt;_calculateConsecutiveTokenScore(self::CLASS_LOWER);
+            $this-&gt;_score += $this-&gt;_calculateConsecutiveTokenScore(self::CLASS_NUMBER);
+
+            $this-&gt;_score += $this-&gt;_calculateSequentialTokenScore(self::CLASS_LETTER);
+            $this-&gt;_score += $this-&gt;_calculateSequentialTokenScore(self::CLASS_NUMBER);
+        }
+
+        return $this-&gt;_score;
+    }
+
+    /**
+     * Calculate the base score based on string length.
+     *
+     * @return integer
+     */
+    protected function _calculateBaseScore()
+    {
+        return $this-&gt;_length * 4;
+    }
+
+    /**
+     * Calculate a score for letter tokens.
+     *
+     * @return integer
+     */
+    protected function _calculateLetterScore()
+    {
+        $score = 0;
+
+        foreach (array (self::CLASS_UPPER, self::CLASS_LOWER) as $class) {
+            $letterCount = $this-&gt;_getClassCount($class);
+
+            if ($letterCount != $this-&gt;_length) {
+                if ($letterCount &gt; 0) {
+                    $score += ($this-&gt;_length - $letterCount) * 2;
+                }
+            }
+        }
+
+        return $score;
+    }
+
+    /**
+     * Calculate a score for number tokens.
+     *
+     * @return integer
+     */
+    protected function _calculateNumberScore()
+    {
+        $score = 0;
+        $numberCount = $this-&gt;_getClassCount(self::CLASS_NUMBER);
+
+        if ($numberCount &gt; 0 &amp;&amp; $numberCount != $this-&gt;_length) {
+            $score += $numberCount * 4;
+        }
+
+        return $score;
+    }
+
+    /**
+     * Calculate a score for symbol tokens.
+     *
+     * @return integer
+     */
+    protected function _calculateSymbolScore()
+    {
+        $score = 0;
+        $symbolCount = $this-&gt;_getClassCount(self::CLASS_SYMBOL);
+
+        if ($symbolCount &gt; 0) {
+            $score += $symbolCount * 4;
+        }
+
+        return $score;
+    }
+
+    /**
+     * Calculate a score for special tokens in the middle of the string.
+     *
+     * @return integer
+     */
+    protected function _calculateMiddleNumberOrSymbolScore()
+    {
+        $score = 0;
+
+        foreach (array (self::CLASS_NUMBER, self::CLASS_SYMBOL) as $class) {
+            $indices = $this-&gt;_getClassIndices($class);
+            foreach (array (0, $this-&gt;_length - 1) as $index) {
+                if (array_search($index, $indices)) {
+                    unset ($indicies[array_search($index, $indices)]);
+                }
+            }
+            $score += count($indices) * 2;
+        }
+
+        return $score;
+    }
+
+    /**
+     * Calculate a score for repeated characters.
+     *
+     * @return integer
+     */
+    protected function _calculateRepeatTokenScore()
+    {
+        $score = 0;
+        $repeats = 0;
+
+        foreach ($this-&gt;_tokens as $token =&gt; $tokenCount) {
+            if ($tokenCount &gt; 1) {
+                $repeats += $tokenCount - 1;
+            }
+        }
+
+        if ($repeats &gt; 0) {
+            $score -= (int) ($repeats / ($this-&gt;_length - $repeats)) + 1;
+        }
+
+        return $score;
+    }
+
+    /**
+     * Calculate a score for consectutive tokens of the same class.
+     *
+     * @param string $class
+     *   The token class to check.
+     * @return integer
+     */
+    protected function _calculateConsecutiveTokenScore($class)
+    {
+        $score = 0;
+        $pattern = '/[^a-zA-Z0-9]{2,}/';
+
+        if ($class == self::CLASS_LETTER) {
+            $pattern = '/[a-zA-Z]{2,}/';
+        }
+
+        if ($class == self::CLASS_UPPER) {
+            $pattern = '/[A-Z]{2,}/';
+        }
+
+        if ($class == self::CLASS_LOWER) {
+            $pattern = '/[a-z]{2,}/';
+        }
+
+        if ($class == self::CLASS_NUMBER) {
+            $pattern = '/[0-9]{2,}/';
+        }
+
+        $matches = array ();
+        preg_match_all($pattern, $this-&gt;_password, $matches);
+        foreach ($matches[0] as $match) {
+            $score -= (strlen($match) - 1) * 2;
+        }
+
+        return $score;
+    }
+
+    /**
+     * Calculate a score for sequential tokens of the same class.
+     *
+     * @param string $class
+     *   The token class to check.
+     * @return integer
+     */
+    protected function _calculateSequentialTokenScore($class)
+    {
+        $score = 0;
+        $indices = array ();
+        $password = $this-&gt;_password;
+        $sequences = array ();
+
+        if ($class == self::CLASS_LETTER) {
+            $indices = array_merge(
+                $this-&gt;_getClassIndices(self::CLASS_LOWER),
+                $this-&gt;_getClassIndices(self::CLASS_UPPER)
+            );
+            $password = strtolower($password);
+        } else {
+            $indices = $this-&gt;_getClassIndices($class);
+        }
+
+        sort($indices);
+
+        $sequence = '';
+        for ($index = 0; $index &lt; count($indices); ++$index) {
+            if (!isset ($indices[$index + 1])) {
+                continue;
+            }
+
+            if ($indices[$index + 1] - $indices[$index] == 1 &amp;&amp; ord($password[$indices[$index + 1]]) - ord($password[$indices[$index]]) == 1) {
+                if ($sequence == '') {
+                    $sequence = $password[$indices[$index]] . $password[$indices[$index + 1]];
+                } else {
+                    $sequence .= $password[$indices[$index + 1]];
+                }
+            } else {
+                if ($sequence != '') {
+                    $sequences[] = $sequence;
+                    $sequence = '';
+                }
+            }
+        }
+
+        foreach ($sequences as $sequence) {
+            if (strlen($sequence) &gt; 2) {
+                $score -= (strlen($sequence) - 2) *2;
+            }
+        }
+
+        return $score;
+    }
+
+}</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all()
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

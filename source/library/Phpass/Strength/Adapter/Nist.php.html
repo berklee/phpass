@@ -1,0 +1,114 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+/**
+ * PHP Password Library
+ *
+ * @package PHPass
+ * @subpackage Strength
+ * @category Cryptography
+ * @author Ryan Chouinard &lt;rchouinard at gmail.com&gt;
+ * @license http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link https://github.com/rchouinard/phpass PHPass project at GitHub.
+ */
+
+/**
+ * @namespace
+ */
+namespace Phpass\Strength\Adapter;
+
+/**
+ * PHPass Strength Adapter for NIST Recommendations
+ *
+ * @package PHPass
+ * @subpackage Strength
+ * @category Cryptography
+ * @author Ryan Chouinard &lt;rchouinard at gmail.com&gt;
+ * @license http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link https://github.com/rchouinard/phpass PHPass project at GitHub.
+ */
+class Nist extends Base
+{
+
+    /**
+     * @see \Phpass\Strength\Adapter::check()
+     */
+    public function check($password)
+    {
+        $this-&gt;_analyze($password);
+
+        $this-&gt;_score = 0;
+
+        // First character is 4 bits of entropy
+        if ($this-&gt;_length &gt; 0) {
+            $this-&gt;_score += 4;
+        }
+
+        // The next seven characters are 2 bits of entropy
+        if ($this-&gt;_length &gt; 1) {
+            $this-&gt;_score += strlen(substr($password, 1, 7)) * 2;
+        }
+
+        // Characters 9 through 20 are 1.5 bits of entropy
+        if ($this-&gt;_length &gt; 8) {
+            $this-&gt;_score += strlen(substr($password, 8, 12)) * 1.5;
+        }
+
+        // Characters 21 and beyond are 1 bit of entropy
+        if ($this-&gt;_length &gt; 20) {
+            $this-&gt;_score += strlen(substr($password, 20));
+        }
+
+        // Bonus of 6 bits if upper, lower, and non-alpha characters are used
+        if ($this-&gt;_getClassCount(self::CLASS_UPPER) &gt; 0 &amp;&amp; $this-&gt;_getClassCount(self::CLASS_LOWER)) {
+            if ($this-&gt;_getClassCount(self::CLASS_NUMBER) &gt; 0 || $this-&gt;_getClassCount(self::CLASS_SYMBOL)) {
+                $this-&gt;_score += 6;
+            }
+        }
+
+        return $this-&gt;_score;
+    }
+
+}</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all()
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>
